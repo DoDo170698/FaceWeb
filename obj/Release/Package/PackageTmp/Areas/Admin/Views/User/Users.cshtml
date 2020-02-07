@@ -1,0 +1,110 @@
+﻿@model demo1.Models.Views.UserModel
+@using demo1.CodeLogic.Customs
+@using demo1.CodeLogic
+@using demo1.CodeLogic.Enums
+@{
+    var users = Model.Users;
+    var userTrannings = Model.UserTrannings;
+    var baseStatus = Model.BaseStatus;
+    var roles = Model.Roles;
+    var userRoles = Model.UserRoles;
+    var deleteLink = "/Admin/User/IsDelete";
+}
+
+<table class="table table-striped table-bordered table-advance table-hover">
+    <thead>
+        <tr>
+            <th class="text-center">STT</th>
+            <th class="text-center">Tên người dùng</th>
+            <th class="text-center">Số điện thoại</th>
+            <th class="text-center">Buổi tập còn lại</th>
+            <th class="text-center">Địa chỉ</th>
+            <th class="text-center">Loại tài khoản</th>
+            <th class="text-center">Trạng thái</th>
+            <th class="text-center">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (users.Count > 0)
+        {
+            var stt = 0;
+            foreach (var item in users)
+            {
+                stt++;
+                var userRole = userRoles.FirstOrDefault(x => x.IDUser == item.ID) ?? new demo1.Models.Fitness.UserRole();
+                <tr>
+                    <td class="text-center">@stt</td>
+                    <td>@item.Name</td>
+                    <td>@item.Phone</td>
+                    <td>@((userTrannings.SingleOrDefault(x => x.IDUser == item.ID) ?? new demo1.Models.Fitness.UserTranning()).Rest)</td>
+                    <td>@item.Address</td>
+                    <td class="text-center">@roles.GetValue(userRole.IDRole)</td>
+                    <td class="text-center">
+                        @if (item.Status == (int)Enums.BaseStatus.UnActive)
+                        {
+                            <div class="label label-danger label-sm">@baseStatus.GetValue(item.Status)</div>
+                        }
+                        else
+                        {
+                            <div class="label label-success label-sm">@baseStatus.GetValue(item.Status)</div>
+                        }
+                    </td>
+                    <td class="text-center">
+                        @*<button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>*@
+                        <div class="btn-group dropup">
+                            <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-blue dropdown-menu-right" style="top:100%;bottom:auto;">
+                                @if (item.Status == (int)Enums.BaseStatus.Active)
+                                {
+                                    <li><a href="@string.Format("/Admin/User/ChangeStatus?ID={0}&Status={1}",item.ID, (int)Enums.BaseStatus.UnActive)">Khóa</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@string.Format("/Admin/User/ChangeStatus?ID={0}&Status={1}",item.ID, (int)Enums.BaseStatus.Active)">Kích hoạt</a></li>
+                                }
+                            </ul>
+                        </div>
+                        <a class="btn btn-primary btn-xs" href="@string.Format("/quan-tri/tai-khoan/cap-nhat/{0}",item.ID)">
+                            <i aria-hidden="true" title="@string.Format("Sửa")" class="fa fa-pencil"></i>
+                        </a>
+                        <a class="quickDelete btn btn-danger btn-xs" style="color:aliceblue" data-target=".ui-dialog:visible" data-id="@item.ID" href="@deleteLink">
+                            <i aria-hidden="true" title="@string.Format("Xóa")" class="fa fa-trash-o"></i>
+                        </a>
+                        @*<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>*@
+                    </td>
+                </tr>
+            }
+
+        }
+
+    </tbody>
+</table>
+<div class="row DTTTFooter">
+    @if (users.Count <= 0)
+    {
+        <div class="dataTables_info col-sm-12 text-center padt10">
+            <strong class="gray">
+                @string.Format("Không có tài khoản nào")
+            </strong>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-3">
+            <div class="dataTables_info text-center" id="searchable_info" role="status" aria-live="polite">
+                <div>
+                    <strong class="gray">
+                        @string.Format("Có tổng số {0} tài khoản", ViewBag.Paging.Total)
+                    </strong>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-sm-3 ">
+            @ViewBag.Paging.RenderAdmin("#div-users")
+        </div>
+    }
+</div>

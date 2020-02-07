@@ -1,0 +1,1136 @@
+/** START CSS TABLE **/
+.mt15{
+    margin-top: 15px;
+}
+.box_table{
+    margin: 50px 0;
+}
+.box_top{
+    margin: 0 0 30px 0;
+}
+.box_top .left{
+    border-right: 1px solid #ddd;
+}
+.title_table{
+    margin: 0 0 10px 0;
+}
+.table_info {
+    margin: 15px 0 0 0;
+    border: 1px solid #ddd;
+    height: 300px;
+}
+.table_scroll{
+    overflow-y:scroll;
+}
+.search_table input{
+    border-radius: 0;
+}
+.table_info tr.active a{
+    color: red;
+}
+.table_info tr.active td{
+    background: none !important;
+}
+.table_clear{
+    margin: 10px 0 0 0;
+}
+.table_clear a{
+    text-decoration: underline;
+    color: blue;
+}
+.wrapper{
+    margin: 50px 0;
+}
+.table_info{
+    border:1px solid #ddd;
+    padding: 10px;
+    background-color: #fff;
+}
+.table_search input{
+    border:1px solid #ddd;
+    border-radius: 0;
+}
+.tree{
+    padding: 15px 0 0 10px;
+}
+ul.checktree-root, ul.tree ul {
+    list-style: none;
+    padding-left: 18px;
+}
+ul.checktree-root label {
+    font-weight: normal;
+    position: relative;
+}
+ul.checktree-root label input {
+    position: relative;
+    top: 2px;
+    left: -5px;
+}
+.table_info .title{
+    font-weight: bold !important;
+    font-size: 15px;
+    margin: 0 0 10px 0;
+}
+.table_check .table_info{
+    height: auto;
+}
+.table_check{
+    width: 100%;
+    float: left;
+    padding: 10px;
+}
+.table_check .tree:before{
+    border-left: none;
+}
+
+.table_info .table_list{
+    height:300px;
+    overflow-y:scroll;
+}
+
+
+
+
+
+
+.table_info .table_search input{
+    width: 100% !important;
+}
+.table_info input[type=radio]:checked~.text:before {
+    content: "\f111" !important;
+    font-family: FontAwesome;
+    font-size: 8px !important;
+    line-height: 17.5px;
+}
+.posion-relative{
+    position:relative !important;
+}
+/** END CSS TABLE **/
+
+
+
+/* ADD CSS 05/10/2017 */
+.dataTables_filter .quickSearch > div:not(.quickSearch_md) label:before {
+    display: none;
+}
+.dataTables_filter .quickSearch > div:not(.quickSearch_md)  label > .form-control {
+    padding-left: 10px;
+}
+.dataTables_filter .quickSearch > div:not(.quickSearch_md) label > .form-control.date {
+    background: url(/Assets/app/img/calendar.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: 16px 16px !important;
+    background-position: right 5px center !important;
+}
+.dataTables_filter .quickSearch > div:not(.quickSearch_md) label > .form-control.datetime {
+    background: url(/Assets/app/img/calendar.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: 16px 16px !important;
+    background-position: right 5px center !important;
+}
+.dataTables_filter .data_search{
+ /*   padding-left: 0;
+    padding-right: 0;*/
+}
+.dataTables_filter .data_search .col-md-2,
+.dataTables_filter .data_search .col-md-3,
+.dataTables_filter .data_search .col-md-4{
+/*    padding-left: 5px;
+    padding-right: 5px;*/
+}
+/* .dataTables_filter .data_search .col-md-2:first-child{
+    padding-left: 10px;
+} */
+.dataTables_filter .data_search .col-md-2 .form-control{
+    /*width: 100%;*/
+}
+.dataTables_filter .data_btn{
+    /*padding: 0 5px;*/
+}
+.dataTables_filter .form-control
+ {
+    border-radius: 3px !important;
+    height: 31px;
+    border: 1px solid #ddd;
+}
+.form-inline .form-control{
+    border-radius: 0;
+    border:1px solid #ddd;
+}
+.search-table-outter tbody textarea{
+    border-radius: 0;
+    border:1px solid #ddd;
+}
+.search-table-outter tbody input{
+    border-radius: 0;
+    border:1px solid #ddd;
+    min-height: 35px;
+}
+.form-control.date{
+    margin: 0 0 10px 0;
+
+}
+
+.docu_view_table .over_auto{
+    height: 500px;
+}
+.docu_view_table .doc_date input {
+    width: 45% !important;
+    display: inline-block;
+    margin: 0;
+}
+
+.form_btn{
+    margin: 0 0 5px 0;
+}
+.select_month .dropdown-menu.open {
+    /* min-width: 220px; */
+}
+/** END ADD CSS **/
+
+
+/** ADD CSS 06/10/2017 **/
+.data_search.actualtarget label{
+    margin: 10px 0 !important;
+}
+.data_search.actualtarget .select_month .btn{
+    border:0;
+}
+.data_btn .btn{
+    height: 32px;
+}
+.data_btn .export-excel-block{
+    width: auto;
+    text-align: center;
+    line-height: 20px;
+}
+.data_btn .export-excel-block .fa{
+    margin-right: 0;
+}
+#select2-drop {
+    /* min-width: 175px !important; */
+}
+.modal_planning .col-lg-2 label{
+    width: 100%;
+}
+.message_note{
+    background-color: #fff;
+    width: 100%;
+    float: left;
+    padding: 15px 0 5px 0;
+}
+.message_note .col-md-12{
+    margin:0 0 10px 0;
+}
+#TblDocumentReview {
+    table-layout: fixed;
+ }
+
+#TblDocumentReview.table > thead > tr > th{
+    vertical-align: middle;
+}
+.table > thead {
+    /*border-bottom: 2px solid #11a9cc ;*/
+}
+.table > thead > tr{
+    /*background-color: #f3f3f3 !important;*/
+}
+.tb_home > thead > tr {
+    background-color: rgba(4, 131, 173, 0.6784313725490196) !important;
+    color: #fff;
+    font-weight: bold;
+}
+.dataTables_filter{
+    width: 100%;
+    float: left;
+}
+.col-md-6.data_date{
+    padding-top: 9px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+/* .dataTable .form-control {
+    margin: 0 0 5px 0;
+}
+.dataTable .form-control:last-child {
+    margin: 0;
+} */
+.documentreview_control .form-control{
+    width: 100% !important;
+}
+.data_search.staff-report .col-md-2 label{
+    margin:10px 0;
+}
+.data_search .col-md-4 {
+/*    padding-left: 5px;
+    padding-right: 5px;*/
+}
+.data_search.document_form label{
+    margin:10px 0 0 0 !important;
+}
+.DTTT.btn-group .btn{
+    border:none;
+}
+.autoSelect2 {
+    height: 32px;
+    border-radius: 0;
+}
+.plan_target_model .form-control{
+    padding-right: 5px !important;
+}
+.creat_bigplanning_check .table_info{
+    height: auto;
+    padding:0;
+}
+.targetobjecttemplate_content>.fixed-column {
+    position: absolute;
+    display: inline-block;
+    width: auto;
+    border-right: 1px solid #ddd;
+}
+.table_check.active{
+    display: block;
+}
+.btn_clicktable_check a{
+    text-decoration: none;
+    color: #017196;
+    cursor: pointer;
+}
+.targetobjecttemplate_content {
+    overflow: scroll;
+    max-height: 500px;
+    float: left;
+    width: 98%;
+    padding:0 15px;
+
+}
+.btn_clicktable_check_a::after{
+    content: "\f3a9";
+    font-family: "Ionicons";
+    margin-left:5px;
+}
+.btn_clicktable_check_a::before{
+    content: attr(data-myorder);
+}
+.btn_clicktable_check_a.active::after{
+    content: "\f359";
+    font-family: "Ionicons";
+    margin-left:5px;
+}
+.btn_clicktable_check_a.active::before{
+    content: attr(data-myorder-1);
+}
+.tablelayout_fix{
+    table-layout: fixed;
+}
+/* #FrmTargetObjectTemplate #TblTeams {
+    table-layout: unset !important;
+    width: unset !important;
+    max-width: unset !important;
+} */
+
+/* #FrmTargetObjectTemplate #TblTeams tr,
+#FrmTargetObjectTemplate #TblTeams th,
+#FrmTargetObjectTemplate #TblTeams td{
+    min-width: 70px;
+} */
+.data_search label{
+    margin:10px 0 0 0 !important;
+}
+.form-group.data_search{
+    margin:0 0 10px 0;
+}
+.data_search.planningtarget .col-md-2{
+   /* width: 25%;*/
+}
+.ui-dialog .ui-dialog-titlebar{
+    background:#017196;
+    width:100%;
+}
+.data_search.actual_target .select_month button {
+    border: none;
+    outline: none !important;
+}
+.search_table .fa {
+    margin: 0;
+}
+.search_table .col-xs-5.col-sm-5.col-md-5.col-lg-5:first-child {
+   /* padding-right: 0;*/
+}
+.search_table .col-xs-5.col-sm-5.col-md-5.col-lg-5 .form-control{
+    height: 32px;
+}
+.select_month button {
+    border: none;
+}
+
+td.huyen{
+    font-weight:bold;
+}
+td.chitieu{
+    padding-left:15px !important;
+}
+/** Mapmining **/
+
+#ContainerMapmining{
+    width: 100%;
+    float: left;
+}
+.mapmining_map{
+    position: relative;
+    background-color: #fff;
+    margin: 15px 0;
+}
+.map_img img{
+    width: 100%;
+}
+img[usemap] {
+    border: none;
+    height: auto;
+    max-width: 100%;
+    width: 100%;
+}
+.mapmining_pos{
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    max-width: 250px;
+}
+.mapmining_pos .map_note{
+    margin: 0 0 15px 0;
+}
+.mapmining_map .map_note{
+    border:1px solid #ddd;
+    background-color: #fff;
+    overflow-y: scroll;
+    height: 275px;
+}
+.title_map_note h3 {
+    float: left;
+    font-weight: bold !important;
+    font-size: 14px;
+    padding: 0 0 0 15px;
+    margin:10px 0;
+}
+.title_map_note span {
+    float: right;
+    line-height: 35px;
+    padding-right: 15px;
+}
+.mapmining_map .map_textarea .table-bordered{
+    border-top: none;
+    border-bottom:none;
+}
+.mapmining_map .map_textarea{
+    border:1px solid #ddd;
+    width: 100%;
+    float: left;
+    background: #fff;
+}
+.mapmining_map .map_textarea .form-control{
+    width:100%;
+}
+.mapmining_map .map_note td{
+    line-height: 30px;
+}
+.map_color{
+    width: 100%;
+    height:30px;
+    border:1px solid #ddd;
+}
+.bg_1{
+    background-color: #FFFFD0;
+}
+.bg_2{
+    background-color: #FF9090;
+}
+.bg_3{
+    background-color: #C0C0FF;
+}
+.bg_4{
+    background-color: #FFB0FF;
+}
+.model_mapmining_btn{
+    margin: 15px 0;
+}
+.model_mapmining_btn a{
+    color: blue;
+}
+.mapmining_map .map_note table,
+.mapmining_map .map_textarea table {
+    width: 100%;
+    background-color: #fff;
+}
+.mapmining_map .map_note table th,
+.mapmining_map .map_note table td,
+.mapmining_map .map_textarea table th,
+.mapmining_map .map_textarea table td{
+    line-height:20px;
+    padding:5px
+}
+select.form-control {
+    height: 32px;
+    border-radius: 0;
+}
+.ui-dialog .form-control{
+    height: 32px;
+}
+.approximate_color .form-control{
+    width:45%;
+    display: inherit;
+    border-radius: 0;
+}
+.divTargetrefer {
+    width: 90%;
+    float: left;
+    border: 1px solid #ddd;
+    min-height: 150px;
+    margin: 0 5% 5% 5%;
+    padding:10px;
+    max-height: 220px;
+    overflow-y: scroll;
+}
+.btn_model_map .btn {
+    width: 100%;
+    text-align: center;
+}
+
+.btn_model_map {
+    padding-left: 0;
+}
+.data_search .col-md-3{
+    padding-left:5px;
+    padding-right:5px;
+}
+/** End Mapmining **/
+a.form_btn.btn.btn-danger.btn-xs.quickDelete{
+    min-width: auto;
+}
+.program_plan .btn {
+    width: 100%;
+}
+.btn_actual_tagert .export-excel{
+    display: inline-block;
+}
+.btn_actual_tagert .btn{
+    margin: 0;
+}
+.ui-dialog .ui-dialog-title{
+/*    width: 93% !important;
+    padding-left: 18% !important;*/
+}
+.dropdown-menu.inner li span.text{
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.dataTables_filter .show-tick.form-control {
+    border:none;
+    border-radius: 0;
+}
+.dataTables_filter .show-tick.form-control .btn{
+    border-radius: 0;
+    border:1px solid #ddd;
+}
+.dataTables_filter .show-tick.form-control .btn:hover{
+    background-color: #fff !important;
+}
+#divActualTargetReport{
+    width: 100%;
+    float: left;
+}
+#divAdvisoryReportModel {
+    width: 100%;
+    float: left;
+    margin: 10px 0 0 0;
+}
+.dropdown-menu.open {
+    /* min-width: 250px !important; */
+}
+.txtarea_big .form-control-feedback.glyphicon.glyphicon-ok {
+    right: 30px !important;
+}
+.table_prostan tbody tr td{
+    position: relative;
+}
+.table_prostan tbody tr td .glyphicon-ok{
+    right:10px !important;
+    top: 5px !important;
+}
+.btn_button .btn{
+    margin: 0;
+}
+.btn_button .export-excel{
+    display: inline-block;
+}
+.data_search.actualtarget {
+    margin: 0;
+}
+#TblActualTargets label {
+    margin: 0;
+}
+/* .form-group.data_search.proposition,
+.form-group.data_search.target_type,
+.form-group.data_search.pro_reports,
+.form-group.data_search.regions{
+    margin: 0;
+} */
+.fullsize {
+    height: 100vh !important;
+    overflow: hidden;
+}
+.modal_planning  .form-control-feedback{
+    right: 40px !important;
+}
+.notify_ob_teamplate .col-lg-8 .col-lg-3 {
+   /* padding-left: 0;*/
+}
+
+.notify_ob_teamplate .col-lg-8 .col-lg-3:first-child {
+    /*padding-left: 15px;*/
+}
+/* .data_search{
+    padding-top: 40px;
+} */
+.data_btn .btn{
+    margin: 0 0 10px 0;
+}
+.data_search.search_target,
+.data_search.target_obj{
+    margin: 0 0 10px 0;
+}
+.quickSearch .export-excel{
+    display: inline-block !important;
+}
+/* .data_search.doc_review,
+.data_search.targetobject,
+.data_search.Excute,
+.data_search.data_mining,
+.data_search.summary */
+.data_search{
+    margin: 0 0 10px 0;
+    float: left;
+}
+.data_search.document_form{
+    margin: 0;
+}
+.quickSearch.actual_all_region {
+    padding-top: 0;
+}
+.quickSearch.actual_all_region .data_btn .btn {
+    margin: 10px 0;
+}
+.widget-body.no-padding .DTTT.btn-group {
+    right: 15px;
+}
+.group_add{
+    float: right;
+}
+.btn-group.group_add .btn{
+    margin: 0 0 0 5px;
+}
+.DTTT.btn-group.group_add{
+    position: static;
+}
+/** End ADD CSS **/
+
+/******************* MOBILE ************************/
+@media only screen and (min-width:1200px){
+    .data_btn.actualtarget .btn{
+        margin: 0 0 10px 0;
+    }
+    .program_plan .col-lg-3,
+    .program_plan .col-lg-4,
+    .program_plan .col-md-3{
+        /*padding-right: 0;*/
+    }
+
+    .program_plan .col-lg-3:last-child,
+    .program_plan .col-lg-4:last-child,
+    .program_plan .col-md-3:last-child {
+        /*padding-right: 15px;*/
+    }
+    .data_search.actual_target .col-md-2{
+        /*width: 20%;*/
+    }
+    .data_search.staff-report .col-md-2{
+        /*width: 14.2%;*/
+    }
+    .data_search.target_obj .col-md-2{
+        /*width:25%;*/
+    }
+    .data_search.actualtarget .col-md-2{
+        /*width: 16.5%;*/
+    }
+    .data_search.search_target .col-md-2 {
+        /*width: 25%;*/
+    }
+    .data_search.pro_reports .col-md-2 {
+        /*width: 16.66%;*/
+    }
+    .data_search.data_mining .col-md-2{
+       /* width: 20%;*/
+    }
+    .data_search.Excute .col-md-2{
+        /*width:20%;*/
+    }
+    .model_map_add{
+        padding:0;
+    }
+    .data_search.mapmining .col-md-2{
+       /* width: 20%;*/
+    }
+    .data_search.AdvisoryReport .col-md-2{
+        /*width: 16.6%;*/
+    }
+    .data_search.doc_review .col-md-2 {
+        /*width: 20%;*/
+    }
+}
+@media only screen and (min-width:1020px){
+    .mapmining_map{
+        min-height: 600px;
+    }
+}
+@media screen and (max-width: 1199px) {
+    .data_btn .btn_button{
+        display: inline-block;
+    }
+    .data_search.mapmining .col-md-2 {
+        /*width: 20%;*/
+    }
+
+    .model_map_add .col-lg-6{
+        /*width: 50%;*/
+        /*float: left;*/
+    }
+    .model_map_add .col-lg-10 {
+/*        width: 80%;
+        float: left;*/
+    }
+    .btn_actual_tagert{
+        display: inline-block;
+    }
+    .model_map_add .btn_model_map {
+        width: 20%;
+        float: left;
+    }
+    .approximate_color .color_to{
+        display: initial;
+    }
+    .cre_plan.no-padding{
+        padding:0px 15px !important;
+    }
+
+    .color_to {
+        display: block;
+        margin: 5px 0;
+    }
+    .data_search.planningtarget .col-md-2 {
+        /*width: 33.33%;*/
+    }
+    .data_search {
+        width: 100%;
+    }
+    .col-md-3.data_btn .btn{
+        display: inline-block;
+    }
+
+    .data_search.search_target .col-md-2,
+    .data_search.target_obj .col-md-2{
+        /*width: 25%;*/
+    }
+    .data_search.actual_target .col-md-2,
+    .data_search.actualtarget .col-md-2{
+        /*width: 33.33%;*/
+    }
+    .data_search.doc_review .col-md-2{
+        /*width: 33.33%;*/
+    }
+    .dataTables_filter .data_search .col-md-2:first-child{
+       /* padding-left: 5px;*/
+    }
+    .data_search .col-md-2 label{
+        margin:10px 0;
+    }
+    .data_search.planningtarget .col-md-2 label{
+        margin:0 0 10px 0 !important;
+    }
+    .data_search.planningtarget .col-md-2 .bootstrap-select.form-control{
+        margin:0 0 10px 0 !important;
+    }
+    .notify_ob_teamplate.noty_plan .form-control {
+        margin-bottom: 10px;
+    }
+    .notify_ob_teamplate.noty_plan .ex_databtn{
+        padding-left: 15px !important;
+    }
+    .notify_ob_teamplate .form-control {
+        margin: 0 0 10px 0;
+    }
+    .data_search.Excute .col-md-2,
+    .data_search.data_mining .col-md-2{
+        /*width: 20%;*/
+    }
+}
+@media screen and (max-width: 1024px) {
+    .btn_button {
+        display: inline-block;
+    }
+    .divTargetrefer{
+        margin: 0 10px 10px 10px;
+        padding: 10px;
+        width: 95%;
+    }
+    .mapmining_pos{
+        position: static;
+        margin: 15px 0 0 0;
+        max-width: 100%;
+    }
+    .notify_ob_teamplate .form-control{
+        margin-bottom: 10px;
+    }
+    .data_search.actual_target .binded{
+        margin:0 0 10px 0;
+    }
+    .noty_plan .col-lg-2.no-padding-left {
+        padding-left: 15px !important;
+    }
+    .data_search.actual_target{
+        margin:0;
+    }
+    .collaspe_NVKD .title_project span:first-child{
+        width: 20%;
+    }
+}
+@media only screen and (max-width:991px){
+    .data_search.document_form{
+        margin: 0 0 10px 0;
+    }
+    .row.DTTTFooter .col-sm-6 {
+        width: 100%;
+        max-width: 100% !important;
+    }
+    .notify_ob_teamplate .col-lg-8 .col-lg-3 {
+        /*padding-left: 15px;*/
+    }
+    .btn_button{
+        display: inline-block;
+    }
+    #sl_target{
+        width: 100%;
+        float: left;
+        margin: 10px 0;
+    }
+    .no-padding-right.data_date {
+        padding-left: 0 !important;
+    }
+    .no-padding-left.data_date {
+        padding-right: 0 !important;
+    }
+    .dataTables_filter .data_btn{
+        padding-left: 15px;
+        padding-right: 15px;
+        width: 100%;
+        max-width:100% !important;
+        float: left;
+    }
+    .data_search.summary .col-md-2:first-child{
+        margin-bottom:10px;
+        float: left;
+    }
+    .select_month .dropdown-menu.open{
+        min-width: 100%;
+    }
+    .widget-body.no-padding .DTTT.btn-group{
+        right: 15px;
+    }
+    .ui-dialog{
+        width:100% !important;
+    }
+    .data_search.actual_target .col-md-2,
+    .data_search.actualtarget .col-md-2,
+    .data_search.planningtarget .col-md-2 {
+       /* width: 100%;*/
+    }
+    .data_search .col-md-2 .bootstrap-select.form-control{
+        margin:0 !important;
+    }
+    .data_search .col-md-6.no-padding-left.data_date input,
+    .data_search .col-md-6.no-padding-right.data_date input{
+        margin: 0;
+    }
+    body .dataTables_filter .quickSearch .data_search {
+        max-width: unset;
+        width: 100%;
+    }
+    body .dataTables_filter .quickSearch .data_search + .data_btn{
+        max-width: unset;
+        width: 100%;
+        padding: 0 15px;
+    }
+    body .dataTables_filter .quickSearch .data_search div[class*="col-"]{
+/*        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;*/
+    }
+    body .dataTables_filter .quickSearch .data_search div[class*="col-"] > label{
+        width: 100%;
+    }
+
+/*    .col-md-9 .data_search{
+        max-width: 75% !important;
+    }*/
+    .data_search div[class*="col-"]{
+/*        width: 100%;
+        max-width: 100% !important;
+        float: left;*/
+    }
+    .data_search .col-md-4{
+       /* padding:0 15px;*/
+    }
+    .dataTables_filter .data_search .col-md-2{
+/*        padding-left: 15px;
+        padding-right: 15px;
+        width: 100%;
+        float: left;*/
+    }
+
+    .dataTables_filter .data_search .col-md-2:first-child{
+/*        padding-left: 15px;
+        width: 100%;
+        float: left;*/
+    }
+    .data_search div[class*="col-"] input{
+        width: 100%;
+    }
+    .data_search .col-md-6.no-padding-left.data_date,
+    .data_search .col-md-6.no-padding-right.data_date{
+/*        padding-left: 0;
+        padding-right: 0;*/
+    }
+    .collaspe_NVKD .title_project span:first-child{
+        width: 100%;
+        margin: 0 0 5px 0;
+        padding-right: 100px;
+    }
+}
+@media(max-width: 768px){
+    .ui-dialog{
+        /*width: 100% !important;*/
+    }
+}
+@media(max-width: 640px){
+    .radio.radio-danger label{
+        max-width: 100%;
+    }
+    /* Force table to not be like tables anymore */
+    .model_map_add .col-lg-10 {
+/*        width: 70%;
+        float: left;*/
+    }
+
+    .model_map_add .btn_model_map {
+        width: 30%;
+        float: left;
+    }
+    .box_top .left {
+        border-right: none;
+    }
+
+    .over_auto{
+        /*overflow: auto;*/
+        position: relative;
+        clear: both;
+    }
+    #targetColors .selectColor {
+        min-width: 100%;
+        width: 100%;
+    }
+    .box_table .box_top .col-xs-6.col-sm-6.col-md-6.col-lg-6{
+        width: 100%;
+    }
+}
+@media(max-width: 600px){
+    .form_bv_targetobjecttemplate div[class*="col"],
+    .form_bv_targetobjecttemplate div[class*="col"]{
+        width: 100%;
+    }
+    .cus-content-table{
+        overflow-x:auto;
+    }
+}
+@media(max-width: 480px){
+    .radio.radio-danger label {
+        min-width: 16%;
+        max-width: 100%;
+    }
+    body .dataTables_filter .quickSearch .data_search div[class*="col-"] > label{
+        width: 100%;
+    }
+    #UpDocumentFiles .fileNames{
+        width: 80%;
+    }
+    .ui-dialog-titlebar span.ui-dialog-title{
+        /*width: 90%;*/
+    }
+    .DTTT.btn-group .btn {
+        padding: 0 10px !important;
+    }
+}
+@media screen and (max-width: 414px){
+    .model_map_add .col-lg-6{
+        width: 100%;
+    }
+    .model_map_add .col-lg-6:first-child{
+        margin: 0 0 10px 0;
+    }
+    .model_map_add .col-lg-10 {
+        width: 100%;
+        float: left;
+    }
+    .model_map_add .btn_model_map {
+        width: 30%;
+        float: left;
+    }
+    .model_map_add .btn_model_map{
+        width: auto;
+        padding-left: 15px;
+        margin: 10px 0 0 0;
+    }
+}
+@media screen and (max-width: 375px) {
+    .search_table div[class*="col"]{
+        width: 100%;
+        margin: 0 0 5px 0;
+    }
+    .search_table div[class*="col"]{
+        margin-left: 15px;
+    }
+    #UpDocumentFiles .fileNames{
+        width:75%;
+    }
+    .DTTT.btn-group .btn{
+        padding:0 10px;
+    }
+    .DTTTFooter .col-sm-6 .dataTables_paginate {
+        width:100%;
+    }
+}
+@media screen and (max-width: 320px) {
+    #UpDocumentFiles .fileNames{
+        width:70%;
+    }
+    .data_btn.actual_target{
+        margin: 0 0 10px 0;
+    }
+}
+/********************* END MOBILE **********************/
+
+body.fullsize .select2-drop-active {
+    z-index: 99999;
+}
+.bg_home{
+    background:url(/Assets/app/img/bg_login.gif) repeat scroll 0% 0% transparent;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+.bg_home figure{
+    position: fixed;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%,-50%);
+}
+/*********** 28/11/2017 *************/
+.change_see{
+    cursor: pointer;
+}
+.change_see:hover{
+    text-decoration: none;
+}
+.change_see::after{
+    content: "\f3a9";
+    font-family: "Ionicons";
+    margin-left:5px;
+    color: #57b5e3;
+}
+.change_see::before{
+    content: attr(data-myorder);
+    color: #57b5e3;
+}
+.change_see.active::after{
+    content: "\f359";
+    font-family: "Ionicons";
+    margin-left:5px;
+    color: #57b5e3;
+}
+.change_see.active::before{
+    content: attr(data-myorder-1);
+    color: #57b5e3;
+}
+.change_table{
+    width: 100%;
+}
+.change_btn_see{
+    width: 100%;
+    margin: 0 0 10px 0;
+}
+
+
+/******** 29/11/2017 ********/
+
+.col-md-offset-1.offset_home{
+    margin-left: 3%;
+}
+.col-md-10.offset_home{
+    width: 94%;
+}
+.tb_home thead tr th{
+    vertical-align: middle !important;
+}
+.tb_home thead{
+    border-bottom: none;
+}
+.mb_5{
+    margin-bottom: 5px !important;
+}
+.has_deadline .glyphicon-remove{
+    right: 16px;
+}
+.collaspe_NVKD .panel-heading{
+    background: #E6EEFB;
+    color: #555;
+    border-radius: 0;
+}
+.collaspe_NVKD .collaspe_NVKD_child .panel-heading{
+    background: #fafafa;
+    color: #555;
+}
+.collaspe_NVKD .panel-title {
+    position:  relative;
+}
+.collaspe_NVKD .panel-title .title_project a:hover{
+    text-decoration: underline;
+    color: #555;
+}
+.collaspe_NVKD .collaspe_NVKD_child .panel-title .title_project a:hover{
+    color: #555;
+}
+.collaspe_NVKD .title_project span{
+    margin: 0 20px 0 0;
+}
+.collaspe_NVKD .pro_advantage{
+    position:absolute;
+    top:0;
+    right:0
+}
+.collaspe_NVKD .panel{
+    border-radius: 0;
+}
+.autocompleteCategory, .autocompletePosition, .autocompleteDept {
+    background-image: url(/Assets/app/img/collapses.png);
+    background-position: calc((100%) - 10px) -30px;
+    background-repeat: no-repeat;
+}

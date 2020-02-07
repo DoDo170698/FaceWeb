@@ -1,0 +1,104 @@
+﻿@model demo1.Models.Views.WorkoutScheduleModel
+@using demo1.CodeLogic.Customs
+@using demo1.CodeLogic.Enums
+@using demo1.Models.Fitness
+@using demo1.CodeLogic.Helper
+@{
+    var searchParam = ViewBag.SearchParam as demo1.CodeLogic.Commons.WorkoutScheduleParam ?? new demo1.CodeLogic.Commons.WorkoutScheduleParam();
+    var workoutSchedules = Model.WorkoutSchedules;
+    var userStudents = Model.UserStudents;
+    var userCoachs = Model.UserCoachs;
+    var workoutScheduleStatus = Model.WorkoutScheduleStatus;
+    var userTrannings = Model.UserTrannings;
+
+}
+
+
+<table class="table table-striped table-bordered table-advance table-hover">
+    <thead>
+        <tr>
+            <th class="text-center">STT</th>
+            <th class="text-center">Tên học viên</th>
+            <th class="text-center">Tên huấn luyện viên</th>
+            <th class="text-center">Thời gian tập</th>
+            <th class="text-center">Số buổi còn lại</th>
+            <th class="text-center">Trạng thái</th>
+            <th class="text-center">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (workoutSchedules.Count > 0)
+        {
+            var stt = 0;
+            foreach (var item in workoutSchedules)
+            {
+                stt++;
+                var user = userStudents.FirstOrDefault(x => x.ID == item.IDUser) ?? new User();
+                var userTranning = userTrannings.FirstOrDefault(x => x.IDUser == item.IDUser) ?? new UserTranning();
+                var coach = userCoachs.FirstOrDefault(x => x.ID == userTranning.IDCoach) ?? new User();
+                var coachChange = userCoachs.FirstOrDefault(x => x.ID == item.IDCoach) ?? new User();
+                <tr>
+                    <td class="text-center">@stt</td>
+                    <td>@user.Name</td>
+                    <td>
+                        @if (item.IDCoach == userTranning.IDCoach)
+                        {
+                            @coach.Name
+                        }
+                        else
+                        {
+                            @coach.Name <b style="color:#3298cb">đổi lịch sang</b> @coachChange.Name 
+                        }
+                    </td>
+                    <td class="text-center">@((item.TrainningDay ?? new DateTime()).ToString("dd-MM-yyyy HH:mm"))</td>
+                    <td class="text-center">@userTranning.Rest</td>
+                    <td class="text-center">
+                        @if (item.Status == (int)Enums.WorkoutScheduleStatus.ChuaTap)
+                        {
+                            <div class="label label-warning label-sm">@workoutScheduleStatus.GetValue(item.Status)</div>
+                        }
+                        else
+                        {
+                            <div class="label label-success label-sm">@workoutScheduleStatus.GetValue(item.Status)</div>
+                        }
+                    </td>
+                   
+                    <td class="text-center">
+                        <a class="btn btn-primary btn-xs" href="@string.Format("/quan-tri/lich-dang-ki-ca-nhan/xem/{0}",item.ID)">
+                            <i aria-hidden="true" title="@string.Format("Xem")" class="fa fa-eye"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        }
+
+    </tbody>
+</table>
+<div class="row DTTTFooter">
+    @if (workoutSchedules.Count <= 0)
+    {
+        <div class="dataTables_info col-sm-12 text-center padt10">
+            <strong class="gray">
+                @string.Format("Không có lịch đăng kí nào")
+            </strong>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-3">
+            <div class="dataTables_info text-center" id="searchable_info" role="status" aria-live="polite">
+                <div>
+                    <strong class="gray">
+                        @string.Format("Có tổng số {0} lịch đăng kí", ViewBag.Paging.Total)
+                    </strong>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-sm-3 ">
+            @ViewBag.Paging.RenderAdmin("#div-workoutSchedules")
+        </div>
+    }
+</div>

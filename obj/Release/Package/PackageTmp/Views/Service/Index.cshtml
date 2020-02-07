@@ -1,0 +1,78 @@
+﻿@model demo1.Models.Views.ServiceModel
+@using demo1.CodeLogic.Customs
+@using demo1.CodeLogic
+@{
+    ViewBag.Title = "Dịch vụ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var categoryServices = Model.CategoryServices;
+    var services = Model.Services;
+    var contentImg = Model.ContentImg;
+
+}
+
+<section class="home-slider owl-carousel">
+
+    <div class="slider-item" style="background-image: url('@contentImg.PathImg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center">
+
+                <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                    <h1 class="mb-3 mt-5 bread" style="font-family: none;">Dịch vụ</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="/Home/Index">Trang chủ</a></span> <span style="color:#cfc7c7">Dịch vụ</span></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="ftco-section">
+    @foreach (var categoryService in categoryServices)
+    {
+        <div class="container mb-5">
+            <div class="row justify-content-center mb-3 pb-3">
+                <div class="col-md-7 heading-section ftco-animate text-center">
+                    <h2 class="mb-4">@categoryService.Name</h2>
+                    <p>@categoryService.Description.</p>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var service in services.Where(x => x.IDCategory.Equals(categoryService.ID)))
+                {
+                    <div class="col-md-6 col-lg-6 pt-3">
+                        <div class="package-program ftco-animate p-2" style="background-color: #4f4e4e2b;">
+                            <div class="row">
+                                <div class="col-md-6 pr-2">
+                                    <div class="img" style="background-image: url('@service.PathImg');height: 250px;"></div>
+                                </div>
+                                <div class="col-md-6 pl-1">
+                                    <h3>@service.Name</h3>
+                                    <span class="d-block mb-4" style="text-align:justify">@service.Description</span>
+                                </div>
+                            </div>
+                            <div class="text mt-4">
+                                <div style="overflow-x:overlay">@Html.Raw(service.Content)</div>
+                                <div class="d-flex mt-4 float-right">
+                                    @*<p class="price">@CUtils.ConvertMoney(service.Amount) Đ<sub> /&nbsp; @service.Duration</sub></p>*@
+                                    <p class="btn-custom"><a href="#">Đăng ký tập thử ngay</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</section>
+
+@Html.Partial("ImagesFooter")
+
+@Scripts.Render("~/Assets/Client/js/jquery-3.2.1.min.js")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".cusheader-service").addClass("active");
+    })
+
+</script>

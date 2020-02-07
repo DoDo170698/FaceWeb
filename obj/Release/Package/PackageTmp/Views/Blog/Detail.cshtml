@@ -1,0 +1,176 @@
+﻿@model demo1.Models.Views.BlogModel
+@using demo1.Repository
+@using demo1.CodeLogic.Enums
+@using demo1.CodeLogic
+@using demo1.Models.Fitness
+@using demo1.CodeLogic.Helper
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var cuser = Model.User;
+    var blog = Model.Blog;
+    var categoryBlog = Model.CategoryBlog;
+    var userCreate = Model.UserCreate;
+    var categoryBlogs = Model.CategoryBlogs;
+    var blogs = Model.Blogs;
+    var blogRecents = Model.BlogRecents;
+}
+
+<section class="home-slider owl-carousel">
+
+    <div class="slider-item" style="background-image: url('@blog.PathImg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center">
+
+                <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                    <h1 class="mb-3 mt-5 bread" style="font-family: none;">@blog.Name</h1>
+                    <p class="breadcrumbs">
+                        <span class="mr-2"><a href="/">Trang chủ</a></span>
+                        <span class="mr-2"><a href="/bai-viet">Bài viết</a></span>
+                        <span style="color:#cfc7c7">Chi tiết bài viết</span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 ftco-animate">
+                <div>
+                    @Html.Raw(blog.Content)
+                </div>
+                <div class="pt-5 mt-5" >
+                    <div id="div-comments">
+                        @Html.Partial("PostComment")
+
+                    </div>
+
+                    <!-- END comment-list -->
+
+                    <div class="comment-form-wrap pt-5">
+                        <h3 class="mb-5">Nhập bình luận</h3>
+                        <form class="quickSubmit" data-target="#div-comments" @*data-insert-type="append"*@ action="/Blog/PostComment" method="post" enctype="multipart/form-data">
+                            @if (cuser == null || cuser.ID == 0)
+                            {
+                                <div class="form-group p-2" style="background-color: #e4dede0a">
+                                    <label for="name" style="border-bottom: 1px solid #a39e9e; color:#a39e9e">Họ và tên *</label>
+                                    @Html.CusTextBox("cmName","Name",null,"Họ và tên","Họ và tên",isNotEmpty:true)
+                                </div>
+                                <div class="form-group p-2" style="background-color: #e4dede0a">
+                                    <label for="email" style="border-bottom: 1px solid #a39e9e; color:#a39e9e">Email</label>
+                                    @Html.CusTextBoxEmail("cmEmail", "Email", null, "Email", "Email", isNotEmpty: false)
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-group p-2" style="background-color: #e4dede0a">
+                                    <label for="name" style="border-bottom: 1px solid #a39e9e; color:#a39e9e">Họ và tên *</label>
+                                    @Html.CusTextBox("cmName","Name",cuser.Name,"Họ và tên","Họ và tên",isNotEmpty:true,isReadOnly:true)
+                                </div>
+                            }
+
+                            <div class="form-group p-2" style="background-color: #e4dede0a">
+                                <label for="message" style="border-bottom: 1px solid #a39e9e; color:#a39e9e">Nội dung</label>
+                                @Html.CusTextArea("cmContent","Content",null,"Nội dung","Nội dung",isNotEmpty:true,row:5)
+                            </div>
+                            <input type="hidden" id="comment-IDBlog" name="IDBlog" value="@blog.ID">
+                            <input type="hidden" id="comment-IDUser" name="IDUser" value="@cuser.ID">
+                            <div class="form-group p-2">
+                                <input type="submit" value="Bình luận" class="btn py-3 px-4 btn-primary">
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div> <!-- .col-md-8 -->
+            <div class="col-md-4 sidebar ftco-animate">
+                <div class="sidebar-box ftco-animate">
+                    <div class="categories">
+                        <h3>Danh mục</h3>
+                        @foreach (var itemCategoryBlog in categoryBlogs)
+                        {
+                            var itemBlog = BlogRepository.UseInstance.GetListByFieldOrDefault("IDCategory", itemCategoryBlog.ID, (int)Enums.TypeObject.Int) ?? new List<Blog>();
+                            <li><a href="#">@itemCategoryBlog.Name <span>(@itemBlog.Count)</span></a></li>
+                        }
+                    </div>
+                </div>
+
+
+                <div class="sidebar-box ftco-animate">
+                    <h3>Bài viết tương tự</h3>
+                    @foreach (var itemBlog in blogs)
+                    {
+                        var user = AccountRepository.UseInstance.GetById(itemBlog.CreatedBy) ?? new User();
+                        var comment = CommentRepository.UseInstance.GetListByFieldOrDefault("IDBlog", itemBlog.ID, (int)Enums.TypeObject.Int) ?? new List<Comment>();
+                        <div class="block-21 mb-4 d-flex">
+                            <a class="blog-img mr-4" style="background-image: url('@itemBlog.PathImg');"></a>
+                            <div class="text">
+                                <h3 class="heading"><a href="@("/chi-tiet-bai-viet/"+itemBlog.ID)">@itemBlog.Name</a></h3>
+                                <div class="meta">
+                                    <div><a href="#"><span class="icon-calendar"></span>&nbsp; @Utils.DateToString(itemBlog.Created)</a></div>
+                                    <div><a href="#"><span class="icon-person"></span> @user.Name</a></div>
+                                    <div><a href="#"><span class="icon-chat"></span> @comment.Count</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+                <div class="sidebar-box ftco-animate">
+                    <h3>Bài viết gần đây</h3>
+                    @foreach (var itemBlogRecent in blogRecents)
+                    {
+                        var user = AccountRepository.UseInstance.GetById(itemBlogRecent.CreatedBy) ?? new User();
+                        var itemComments = CommentRepository.UseInstance.GetListByFieldOrDefault("IDBlog", itemBlogRecent.ID, (int)Enums.TypeObject.Int) ?? new List<Comment>();
+                        <div class="block-21 mb-4 d-flex">
+                            <a class="blog-img mr-4" style="background-image: url('@itemBlogRecent.PathImg');"></a>
+                            <div class="text">
+                                <h3 class="heading"><a href="@("/chi-tiet-bai-viet/"+itemBlogRecent.ID)">@itemBlogRecent.Name</a></h3>
+                                <div class="meta">
+                                    <div><a href="#"><span class="icon-calendar"></span>&nbsp; @Utils.DateToString(itemBlogRecent.Created)</a></div>
+                                    <div><a href="#"><span class="icon-person"></span> @user.Name</a></div>
+                                    <div><a href="#"><span class="icon-chat"></span> @itemComments.Count</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+
+
+                <div class="sidebar-box ftco-animate">
+                    <h3>Mô tả</h3>
+                    <p>@blog.Description</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section> <!-- .section -->
+
+@section scriptClients{
+    @*<script src="~/Assets/Admin/jquery/js/jquery.cscrollbar.js"></script>
+    <script src="/Assets/Admin/app/js/upfile.js"></script>
+    <script src="/Assets/Admin/app/js/autocomplete.js"></script>
+    <script src="/Assets/Admin/app/js/utils.js"></script>
+    <script src="/Assets/Admin/app/js/main.js"></script>
+    <script src="~/Assets/Admin/app/js/stgfile.js"></script>
+    <script src="/Assets/Admin/app/js/admin.js"></script>
+    <script src="/Assets/Admin/app/js/avatar.js"></script>
+    <script src="/Assets/Admin/app/js/pages.js"></script>*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusheader-blog").addClass("active");
+        })
+
+    </script>
+}
+
+
+

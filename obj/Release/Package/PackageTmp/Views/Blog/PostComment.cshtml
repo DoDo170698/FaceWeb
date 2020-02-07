@@ -1,0 +1,42 @@
+﻿@model demo1.Models.Views.BlogModel
+@using demo1.Repository
+@using demo1.CodeLogic
+@using demo1.Models.Fitness
+@{
+    //var comment = Model.Comment;
+    //var user = AccountRepository.UseInstance.GetById(comment.IDUser);
+    var comments = Model.Comments;
+    
+}
+<h3 class="mb-5">@comments.Count Bình luận</h3>
+<ul class="comment-list">
+    @foreach (var itemComment in comments)
+    {
+        var itemUser = AccountRepository.UseInstance.GetById(itemComment.IDUser) ?? new User();
+        if (!Equals(itemUser, null))
+        {
+            <li class="comment">
+                <div class="vcard bio">
+                    <img src="@(itemUser.PathImg ?? "/Assets/Client/images/no-avatar.png")" alt="Image placeholder">
+                </div>
+                <div class="comment-body">
+                    <h3>
+                        @if (itemComment.IDUser == 0)
+                        {
+                            @itemComment.Name
+                        }
+                        else
+                        {
+                            @itemUser.Name
+                        }
+                    </h3>
+                    <div class="meta">@Utils.DateToString(itemComment.Created, "dd-MM-yyyy HH:mm")</div>
+                    <p>@itemComment.Content.</p>
+                    @*<p><a href="#" class="reply">Reply</a></p>*@
+                </div>
+            </li>
+        }
+
+    }
+
+</ul>

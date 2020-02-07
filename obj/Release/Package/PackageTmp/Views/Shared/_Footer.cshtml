@@ -1,0 +1,100 @@
+﻿@using demo1.Repository
+@using demo1.CodeLogic.Enums
+@using demo1.CodeLogic
+@using demo1.Models
+@{
+    var contactInfor = (ContactInfor.UseInstance.GetListOrDefault() ?? new List<ContactInfor>()).FirstOrDefault() ?? new ContactInfor();
+    var contents = ContentRepository.UseInstance.GetFirstByFieldOrDefault("Type", (int)Enums.TypeContent.NoiDungFooter, (int)Enums.TypeObject.Int) ?? new Contents();
+    var blogs = BlogRepository.UseInstance.GetListByFieldsOrDefault(new List<CondParam> { }, orderBy: "Created DESC", skip: 0, take: 2);
+    var userCreateds = AccountRepository.UseInstance.GetListByFieldsOrDefault(new List<CondParam> {
+        new CondParam{ Field="ID", Value=blogs.Select(x => x.CreatedBy).ToArray(), CompareType = (int)Enums.CompareTypes.In, TypeSQL = (int)Enums.TypeSQl.Number }
+    });
+    var comments = CommentRepository.UseInstance.GetListByFieldsOrDefault(new List<CondParam>
+    {
+            new CondParam{ Field="IDBlog", Value=blogs.Select(x => x.ID).ToArray(), CompareType = (int)Enums.CompareTypes.In, TypeSQL = (int)Enums.TypeSQl.Number }
+    });
+    var services = ServiceRepository.UseInstance.GetListByFieldsOrDefault(new List<CondParam> { }, orderBy: "Created DESC", skip: 0, take: 4);
+}
+@using demo1.Models.Fitness
+<footer class="ftco-footer ftco-section img">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">@contents.Title</h2>
+                    <p>@contents.Content1</p>
+                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                        <li class="ftco-animate"><a title="@contactInfor.Facebook" href="@contactInfor.FacebookUrl"><span class="icon-facebook"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Bài viết mới</h2>
+                    @if (blogs.Count > 0)
+                    {
+                        foreach (var blog in blogs)
+                        {
+                            var userCreated = userCreateds.FirstOrDefault(x => x.ID == blog.CreatedBy) ?? new User();
+                            var comment = comments.Where(x => x.IDBlog.Equals(blog.ID)).ToList() ?? new List<Comment>();
+                            <div class="block-21 mb-4 d-flex">
+                                <a class="blog-img mr-4" style="background-image: url('@blog.PathImg');"></a>
+                                <div class="text">
+                                    <h3 class="heading"><a href="/chi-tiet-bai-viet/@blog.ID">@blog.Name</a></h3>
+                                    <div class="meta">
+                                        <div><a href="#"><span class="icon-calendar"></span> @Utils.DateToString(blog.Created, "dd/MM/yyyy HH:mm")</a></div>
+                                        <div><a href="#"><span class="icon-person"></span> @userCreated.Name</a></div>
+                                        <div><a href="#"><span class="icon-chat"></span> @comment.Count</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-5 mb-md-5">
+                <div class="ftco-footer-widget mb-4 ml-md-4">
+                    <h2 class="ftco-heading-2">Dịch vụ</h2>
+                    <ul class="list-unstyled">
+                        @if (services.Count > 0)
+                        {
+                            foreach (var service in services)
+                            {
+                                <li><a href="/dich-vu" class="py-2 d-block">@service.Name</a></li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Thông tin liên hệ</h2>
+                    <div class="block-23 mb-3">
+                        <ul>
+                            <li><span class="icon icon-map-marker"></span><span class="text">@contactInfor.Address</span></li>
+
+                            <li><a href="tel://@contactInfor.Phone"><span class="icon icon-phone"></span><span class="text">@contactInfor.Phone</span></a></li>
+                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">@contactInfor.Email</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+
+                <p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+

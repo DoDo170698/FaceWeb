@@ -1,0 +1,77 @@
+﻿@model demo1.Models.Views.ContactModel
+@using demo1.CodeLogic.Helper
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var searchParam = ViewBag.SearchParam as demo1.CodeLogic.Commons.ContactParam ?? new demo1.CodeLogic.Commons.ContactParam();
+}
+
+
+<section class="wrapper mt-2">
+    <h3><i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    <!-- row -->
+    <div class="row mt">
+        <div class="col-md-12">
+            <div class="content-panel col-md-12 col-xs-12">
+                <div class="col-md-12">
+                    <form class="quickSearch dataFilter" data-target="#div-blogContacts" action="@Model.Action" method="post" enctype="multipart/form-data">
+                        <div class="col-md-3" style="margin-bottom:10px">
+
+
+                            @Html.CusTextBox("srName", "Name", searchParam.Name, "Tên người góp ý", "Tên người góp ý", false)
+                        </div>
+                        <div class="col-md-3" style="margin-bottom:10px">
+
+
+                            @Html.CusTextBox("srSubject", "Subject", searchParam.Subject, "Tiêu đề góp ý", "Tiêu đề góp ý", false)
+                        </div>
+                        <div class="col-md-3" style="margin-bottom:10px">
+
+
+                            @Html.CusTextBox("srMessage", "Message", searchParam.Message, "Nội dung góp ý", "Nội dung góp ý", false)
+                        </div>
+                        <div class="col-md-3" style="margin-bottom:10px">
+
+
+                            @Html.CusTextBoxDigit("srPhone", "Phone", searchParam.Phone, "Số điện thoại", "Số điện thoại", false)
+                        </div>
+
+
+                        <div class="col-md-12" style="margin-bottom:10px">
+                            <div class="col-md-3 text-right">
+                            </div>
+                            <div class="col-md-3 text-right">
+                            </div>
+                            <div class="col-md-3 text-right">
+                            </div>
+                            <div class="col-md-3 col-xs-12 text-right">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                @*<div class="col-md-2">
+
+                    </div>*@
+            </div>
+            <div class="content-panel col-md-12 col-xs-12 no-padding cus-content-table" id="div-blogContacts">
+                @Html.Partial("Contacts", Model)
+            </div>
+            <!-- /content-panel -->
+        </div>
+        <!-- /col-md-12 -->
+    </div>
+    <!-- /row -->
+</section>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusleft-contact").addClass("active");
+            $(".cusleft-contacts").addClass("active-cus");
+        })
+
+    </script>
+}
+

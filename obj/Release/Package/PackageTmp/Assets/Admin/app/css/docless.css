@@ -1,0 +1,216 @@
+/**********MOBIFONE*********/
+body .navbar-inner{
+    background-color: #fff !important;
+}
+body .navbar-inner a,
+body .navbar-inner i,
+body .navbar-inner .appname,
+body .navbar-inner .profile span{
+    color: #017196 !important;
+}
+body .navbar .navbar-inner .navbar-header .navbar-account .account-area>li>a:hover {
+    background-color: #017196;
+    -webkit-box-shadow: 0 0px 40px rgba(0,0,0,.24);
+    -moz-box-shadow: 0 0px 40px rgba(0,0,0,.24);
+    box-shadow: 0 0px 40px rgba(0,0,0,.24);
+}
+body .navbar-inner a:hover,
+body .navbar-inner i:hover,
+body .navbar-inner .appname:hover,
+body .navbar-inner .profile span:hover{
+    color: #fff !important;
+}
+body .advanced_search_bar:hover {
+    background: #f6f6f6 !important;
+}
+body .advanced_search_bar:hover .btn-searchs>.btn-group>.btn{
+    background: #f6f6f6 !important; 
+    opacity: 1;
+    color: #666 !important;    
+}
+body .advanced_search_bar:hover .btn-searchs>.btn {
+    color: #666 !important;
+}
+body .navbar-inner .dropdown-menu  a{
+    color: #017196 !important;
+}
+body .ilogo{
+    height: 40px;
+    margin-left: -25px;
+    width: 194px;
+    background-size: auto 40px !important;
+}
+body .ui-dialog .ui-dialog-title {
+    background-color: #fff !important;
+    background-position: 15px center;
+    color: #017196 !important;
+    background-size: 70px auto;
+    border-bottom: 1px solid #ccc;
+}
+body .ui-dialog .ui-dialog-titlebar-close{
+    color: orange !important;
+}
+/******************/
+
+body .sidebar-menu .mgtitle {
+    background-color: #0E62AF !important;
+}
+body .sidebar-menu .mgtitle:hover, 
+body .sidebar-menu .mgtitle:focus {
+    background-color: #13a1d0!important;
+}
+body .breadcrumb>li>a {
+    color: #fff !important;
+}
+body .breadcrumb>li+li:before {
+    color: #fff !important;
+}
+body .ui-dialog .ui-dialog-titlebar-close {
+    color: #ed1d24 !important;
+}
+body .breadcrumb>li, body .breadcrumb>li.active {
+    color: #fff;
+}
+body .page-breadcrumbs {
+    background: #0E62AF !important;
+    min-height: 39px !important;
+}
+body .breadcrumb>li>i {
+    color: #fff !important;
+}
+body .navbar .sidebar-collapse.active .collapse-icon, 
+body .navbar .sidebar-collapse .collapse-icon {
+    padding: 10px 11px !important;
+}
+body .navbar .navbar-inner .navbar-header .navbar-account .account-area>li.open>a {
+    background-color: #fff !important;
+}
+body .advanced_search_bar .form-control.input-sm::-webkit-input-placeholder{
+    color: #fff;
+}
+body .advanced_search_bar .form-control.input-sm:-moz-placeholder{
+    color: #fff;
+}
+body .advanced_search_bar .form-control.input-sm::-moz-placeholder{
+    color: #fff;
+}
+body .advanced_search_bar .form-control.input-sm::-ms-input-placeholder{
+    color: #fff;
+}
+body .navbar .navbar-inner .navbar-header .navbar-account .account-area>li>a:hover {
+    background-color: #fff !important;
+}
+.quickSearch_custom .btn-searchs .btn-group {
+    margin-left: 5px !important;
+}
+body .navbar-inner a, 
+body .navbar-inner i, 
+body .navbar-inner .appname, 
+body .navbar-inner .profile span {
+    color: #0E62AF !important;
+}
+body .navbar-inner a:hover, 
+body .navbar-inner i:hover, 
+body .navbar-inner .appname:hover, 
+body .navbar-inner .profile span:hover {
+    color: #0E62AF !important;
+}
+body .advanced_search_bar:hover {
+    background: #c6c6c6!important;
+}
+body .advanced_search_bar {
+    background: #c6c6c6 !important;
+}
+body .advanced_search_bar .form-control.input-sm {
+    color: #fff  !important;
+}
+body .advanced_search_bar .btn-searchs>.btn {
+    background: #ed252a !important;
+}
+body .advance search_bar .btn-searchs>.btn:focus,
+body .advanced_search_bar .btn-searchs>.btn:hover {
+    background: #ff0000 !important;
+}
+body .advanced_search_bar:hover .btn-searchs>.btn-group>.btn,
+body .advanced_search_bar .btn-searchs>.btn-group>.btn {
+    background: transparent !important;
+}
+body .advanced_search_bar .btn-searchs>.btn>i,
+body .advanced_search_bar .btn-searchs>.btn>i:hover,
+body .advanced_search_bar .btn-searchs>.btn>i:focus,
+body .advanced_search_bar .btn-searchs>.btn-group>.btn>i,
+body .advanced_search_bar .btn-searchs>.btn-group>.btn>i:hover,
+body .advanced_search_bar .btn-searchs>.btn-group>.btn>i:focus{
+    color: #fff !important;
+}
+.navbar .navbar-inner .navbar-header .navbar-account .account-area>li .dropdown-menu.dropdown-notifications li .notification-icon i {
+    color: #f6921e !important;
+}
+.navbar .navbar-inner .navbar-header .navbar-account .account-area>li .dropdown-menu.dropdown-notifications li:first-child .notification-icon i {
+    color: #00aeef !important;
+}
+body .user_activity .nav-tabs>li.active {
+    border-bottom: 2px solid #57b5e3!important;
+}
+body .user_activity .nav-tabs>li>a {
+    color: #fff !important;
+}
+body .navbar .navbar-inner .navbar-header .navbar-account .account-area>li .dropdown-menu.dropdown-login-area>li .avatar-area .caption {
+    color: #fff !important;
+}
+body  .section_newfeed .cover.profile .cover-info .avatar .update_avatar span {
+    font-weight: normal !important;
+}
+body .ilogo {
+    height: 40px;
+    margin-left: -25px;
+    width: 189px;
+    background-size: auto 30px !important;
+}
+body .ui-dialog .ui-dialog-title {
+    background-color: #fff!important;
+    background-position: 15px center;
+    color: #017196!important;
+    background-size: 70px auto;
+    border-bottom: 1px solid #ccc;
+}
+body .navbar .navbar-inner .navbar-header .navbar-account .account-area>li .dropdown-menu.dropdown-notifications li .notification-body .title {
+    color: #444 !important;
+}
+body .page-sidebar.menu-compact~.page-content {
+    margin-left: 42px;
+}
+body .breadcrumb > li > i:hover, 
+body .breadcrumb>li>a:hover {
+    color: #fff !important;
+    text-decoration: underline !important;
+}
+body .sidebar_action_btn_content {
+    padding: 5px 5px;
+    border-bottom: none !important;
+    background: #0E62AF !important;
+}
+body .page-sidebar>.sidebar-menu>li>a {
+    background-color: #0e62af!important;
+}
+body .page-sidebar>.sidebar-menu>li>a:hover, 
+body .page-sidebar>.sidebar-menu>li>a:focus {
+    background-color: #1c73c2!important;
+}
+body .btn-searchs .btn {
+    height: 30px !important;
+}
+body  .page-sidebar .sidebar-menu a {
+    height: 39px;
+    line-height: 39px;
+}
+body .quickSearch_custom.advanced_search_bar .btn-searchs .btn-group {
+    margin-left: 0!important;
+}
+body .breadcrumb>li.active>a {
+    color: #fff !important;
+    font-weight: bold;
+}
+body .appname {
+        margin-left: 65px;
+}

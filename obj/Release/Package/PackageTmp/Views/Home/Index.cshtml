@@ -1,0 +1,447 @@
+﻿@model demo1.Models.Views.HomeModel
+@using demo1.CodeLogic.Customs
+@using demo1.CodeLogic
+@using demo1.CodeLogic.Enums
+@using demo1.Models.Fitness
+@using demo1.CodeLogic.Helper
+@{
+
+
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var blogNutritions = Model.BlogNutritions;
+    var categoryServices = Model.CategoryServices;
+    var services = Model.Services;
+    var blogs = Model.Blogs;
+    var users = Model.Users;
+    var comments = Model.Comments;
+    var contents = Model.Contents;
+    var contentImgs = Model.ContentImgs;
+    var cUser = Model.User;
+
+
+    var content_loichao = contents.FirstOrDefault(x => x.Type == (int)Enums.TypeContent.LoiChao) ?? new Contents();
+    var content_motaDV = contents.FirstOrDefault(x => x.Type == (int)Enums.TypeContent.MoTaDichVu) ?? new Contents();
+    var content_motaBVTB = contents.FirstOrDefault(x => x.Type == (int)Enums.TypeContent.MoTaBVTB) ?? new Contents();
+    //var content_motaCDDD = contents.FirstOrDefault(x => x.Type == (int)Enums.TypeContent.MoTaCDDD) ?? new Contents();
+    var content_motaDGKH = contents.FirstOrDefault(x => x.Type == (int)Enums.TypeContent.MoTaDGKH) ?? new Contents();
+    var content_motaDVPB = contents.FirstOrDefault(x => x.Type == (int)Enums.TypeContent.MoTaDVPB) ?? new Contents();
+
+    var slideMains = contentImgs.Where(x => x.Type == (int)Enums.TypeContentImg.SlideMain) ?? new List<ContentImg>();
+    var videoMain = contentImgs.FirstOrDefault(x => x.Type == (int)Enums.TypeContentImg.VideoMain) ?? new ContentImg();
+    var imgDGKH = contentImgs.FirstOrDefault(x => x.Type == (int)Enums.TypeContentImg.ImgDGKH) ?? new ContentImg();
+}
+<section class="home-slider owl-carousel">
+    @foreach (var slideMain in slideMains)
+    {
+
+        <div class="slider-item" style="background-image: url('@slideMain.PathImg');">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row slider-text align-items-center" data-scrollax-parent="true">
+
+                    <div class="col-md-5 col-sm-12 ftco-animate">
+                        <h1 class="mb-4">
+                            @slideMain.Title
+                        </h1>
+                        <p class="mb-4 mb-md-5">@slideMain.Content.</p>
+                        <p><a href="/dang-ky-tap-thu" class="btn btn-primary p-3 px-xl-4 py-xl-3">Bắt đầu ngay</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+
+
+</section>
+
+<section class="ftco-intro">
+    @{
+        var contactInfor = (ContactInfor.UseInstance.GetListOrDefault() ?? new List<ContactInfor>()).FirstOrDefault() ?? new ContactInfor();
+        var address1 = string.Empty;
+        var address2 = string.Empty;
+        if (contactInfor.Address.Contains("-"))
+        {
+            var arr = contactInfor.Address.Split('-').Select(x => x.Trim()).ToList();
+            address2 = arr[arr.Count - 1];
+            arr.RemoveAt(arr.Count - 1);
+            address1 = string.Join("-", arr);
+        }
+        else
+        {
+            address1 = contactInfor.Address;
+        }
+    }
+    <div class="container-wrap">
+        <div class="wrap d-md-flex justify-content-end align-items-xl-end">
+            <div class="info">
+                <div class="row no-gutters">
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="icon"><span class="icon-phone"></span></div>
+                        <div class="text">
+                            <h3><a href="tel://@contactInfor.Phone" style="color:black">@contactInfor.Phone</a></h3>
+                            <p>Liên hệ qua số điện thoại</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="icon"><span class="icon-my_location"></span></div>
+                        <div class="text">
+                            <h3>@address1</h3>
+                            <p>@address2</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="icon"><span class="icon-clock-o"></span></div>
+                        <div class="text">
+                            <h3>@contactInfor.RangeDay</h3>
+                            <p>@contactInfor.RangeTime</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-about d-md-flex ftco-bg-dark">
+    <div class="one-half img" style="background-image: url('@videoMain.PathImg');">
+        <a href="@videoMain.Content" class="icon popup-vimeo d-flex justify-content-center align-items-center">
+            <span class="icon-play">
+        </a>
+    </div>
+    <div class="one-half ftco-animate">
+        <div class="heading-section ftco-animate ">
+            <h2 class="mb-4"> <span>@content_loichao.Title</span>@content_loichao.Content1</h2>
+        </div>
+        <div>
+            <p>
+                @content_loichao.Content2
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <span class="subheading">Thông tin</span>
+                <h2 class="mb-4">Dịch vụ</h2>
+                <p>@content_motaDV.Content1</p>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in categoryServices)
+            {
+                <div class="col-md-6 ftco-animate">
+                    <div class="media d-block text-center block-6 services">
+                        <div class="icon d-flex justify-content-center align-items-center mb-5">
+                            <div class="img img-category-service" style="background-image: url(@item.PathImg);"></div>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="heading">@item.Name</h3>
+                            <p>@item.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+
+@*<section class="ftco-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 pr-md-5">
+                    <div class="heading-section text-md-right ftco-animate">
+                        <span class="subheading">Danh sách</span>
+                        <h2 class="mb-4">Dịch vụ</h2>
+                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                        <p><a href="Service/Index" class="btn btn-primary btn-outline-primary px-4 py-3">Xem tất cả dịch vụ</a></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    @foreach (var item in services)
+                    {
+                        <div class="program d-flex ftco-animate">
+                            <div class="icon d-flex justify-content-center align-items-center" style="width:130px;height:110px">
+                                <div class="img img-category-service rounded-circle" style="background-image: url(@item.PathImg);"></div>
+                            </div>
+                            <div class="text ml-5">
+                                <h3>@item.Name</h3>
+                                <p>@item.Content</p>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </section>*@
+
+@Html.Partial("ContentNumber")
+
+@*<section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-7 heading-section text-center ftco-animate">
+                    <span class="subheading">Thông tin</span>
+                    <h2 class="mb-4">Chế độ dinh dưỡng</h2>
+                    <p>@content_motaCDDD.Content1</p>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in blogNutritions)
+                {
+                    <div class="col-lg-6 d-flex">
+                        <div class="coach d-sm-flex align-items-stretch">
+                            <div class="img order-xl-last" style="background-image: url(@item.PathImg);"></div>
+                            <div class="text py-4 px-5 ftco-animate">
+                                <span class="subheading">@item.Title</span>
+                                <h3><a href="#">@item.Name</a></h3>
+                                <p>@item.Description</p>
+                                <ul class="ftco-social-media d-flex mt-4">
+                                    <li class="ftco-animate"><a href="#" class="mr-2 d-flex justify-content-center align-items-center"><span class="icon-twitter"></span></a></li>
+                                    <li class="ftco-animate"><a href="#" class="mr-2 d-flex justify-content-center align-items-center"><span class="icon-facebook"></span></a></li>
+                                    <li class="ftco-animate"><a href="#" class="mr-2 d-flex justify-content-center align-items-center"><span class="icon-instagram"></span></a></li>
+                                </ul>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>*@
+
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section ftco-animate text-center">
+                <h2 class="mb-4">Dịch vụ phổ biến</h2>
+                <p>@content_motaDVPB.Content1</p>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in services)
+            {
+
+                <div class="col-md-6 col-lg-6 pt-3">
+                    <div class="package-program ftco-animate p-2" style="background-color: #4f4e4e2b;">
+                        <div class="row">
+                            <div class="col-md-6 pr-2">
+                                <div class="img" style="background-image: url('@item.PathImg');height: 250px;"></div>
+                            </div>
+                            <div class="col-md-6 pl-1">
+                                <h3>@item.Name</h3>
+                                <span class="d-block mb-4" style="text-align:justify">@item.Description</span>
+                            </div>
+                        </div>
+                        <div class="text mt-4">
+                            <div style="overflow-x:overlay">
+                                @Html.Raw(item.Content)
+                            </div>
+                            <div class="d-flex mt-4 float-right">
+                                @*<p class="price">@CUtils.ConvertMoney(service.Amount) Đ<sub> /&nbsp; @service.Duration</sub></p>*@
+                                <p class="btn-custom"><a href="#">Đăng ký tập thử ngay</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section img" id="ftco-testimony" style="background-image: url('@imgDGKH.PathImg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <span class="subheading">Nhận xét</span>
+                <h2 class="mb-4">Đánh giá của khách hàng</h2>
+                <p>@content_motaDGKH.Content1</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-wrap">
+        <div class="row d-flex no-gutters">
+            @if (comments.Count > 0)
+            {
+                var count = 0;
+                foreach (var item in comments.Where(x => x.Status == (int)Enums.CommentStatus.YesActive).OrderByDescending(x => x.Created).Take(5))
+                {
+                    var user = users.FirstOrDefault(x => x.ID.Equals(item.IDUser));
+                    if (count % 2 == 0)
+                    {
+                        <div class="col-lg-2 align-self-sm-end ftco-animate">
+                            <div class="testimony">
+                                <blockquote>
+                                    <p>&ldquo;@item.Content.&rdquo;</p>
+                                </blockquote>
+                                <div class="author d-flex mt-4">
+                                    <div class="image mr-3 align-self-center">
+                                        <img src="@(user == null ? "/Assets/Client/images/no-avatar.png" : user.PathImg)" alt="">
+                                    </div>
+                                    <div class="name align-self-center">@(user == null ? item.Name : user.Name) <span class="position">@(user == null ? item.Email : user.Address)</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-lg-2 align-self-sm-end">
+                            <div class="testimony overlay">
+                                <blockquote>
+                                    <p>&ldquo;@item.Content.&rdquo;</p>
+                                </blockquote>
+                                <div class="author d-flex mt-4">
+                                    <div class="image mr-3 align-self-center">
+                                        <img src="@(user == null ? "/Assets/Client/images/no-avatar.png" : user.PathImg)" alt="">
+                                    </div>
+                                    <div class="name align-self-center">@(user == null ? item.Name : user.Name) <span class="position">@(user == null ? item.Email : user.Address)</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+
+
+            @*<div class="col-lg align-self-sm-end">
+                    <div class="testimony overlay">
+                        <blockquote>
+                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however.&rdquo;</p>
+                        </blockquote>
+                        <div class="author d-flex mt-4">
+                            <div class="image mr-3 align-self-center">
+                                <img src="/Assets/Client/images/person_2.jpg" alt="">
+                            </div>
+                            <div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg align-self-sm-end ftco-animate">
+                    <div class="testimony">
+                        <blockquote>
+                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small  line of blind text by the name. &rdquo;</p>
+                        </blockquote>
+                        <div class="author d-flex mt-4">
+                            <div class="image mr-3 align-self-center">
+                                <img src="/Assets/Client/images/person_3.jpg" alt="">
+                            </div>
+                            <div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section ftco-animate text-center">
+                <h2 class="mb-4">Bài viết tiêu biểu</h2>
+                <p>@content_motaBVTB.Content1</p>
+            </div>
+        </div>
+        <div class="row d-flex">
+            @foreach (var item in blogs)
+            {
+                var user = users.SingleOrDefault(x => x.ID.Equals(item.CreatedBy)) ?? new demo1.Models.Fitness.User();
+                var countComment = comments.Count(x => x.IDBlog == item.ID);
+                <div class="col-md-4 d-flex ftco-animate">
+                    <div class="blog-entry align-self-stretch w-100">
+                        <a href="/chi-tiet-bai-viet/@item.ID" class="block-20" style="background-image: url('@item.PathImg');">
+                        </a>
+                        <div class="text py-4 d-block">
+                            <div class="meta">
+                                <div><a>@Utils.DateToString(item.Created, "dd/MM/yyyy")</a></div>
+                                <div><a>@user.Name</a></div>
+                                <div><a class="meta-chat"><span class="icon-chat"></span> @countComment</a></div>
+                            </div>
+                            <h3 class="heading mt-2"><a href="/chi-tiet-bai-viet/@item.ID">@item.Name</a></h3>
+                            <p>@item.Description .</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@Html.Partial("ImagesFooter")
+
+<section class="ftco-appointment">
+    <div class="overlay"></div>
+    <div class="container-wrap">
+        <div class="row no-gutters d-md-flex align-items-center">
+            <div class="col-md-6 d-flex align-self-stretch">
+                <div id="map"></div>
+            </div>
+            <div class="col-md-6 appointment ftco-animate">
+                <h3 class="mb-3">Đăng ký tập thử</h3>
+                <form action="/PracticeDemo/Registration" class="contact-form form-horizontal style-form bv-form validateForm" enctype="multipart/form-data" method="post">
+                    <div class="d-md-flex">
+                        @if (cUser.ID == 0)
+                        {
+                            <div class="form-group col-md-6">
+                                @Html.CusTextBox("crName", "Name", null, "Họ và tên", "Họ và tên", false, true, addClass: "p-2")
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.CusTextBoxDigit("crPhone", "Phone", null, "Số điện thoại", "Số điện thoại", true, addClass: "p-2")
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group col-md-12">
+                                @Html.CusTextBox("crName", "Name", cUser.Name, "Họ và tên", "Họ và tên", false, true, addClass: "p-2", isReadOnly: true)
+                            </div>
+                            <input type="text" hidden name="IDUser" value="@Model.User.ID">
+                        }
+                    </div>
+                    <div class="d-md-flex">
+                        <div class="form-group col-md-6">
+                            <div class="input-wrap row ">
+                                <div class="col-md-10">
+
+                                    @Html.CusTextBoxDateTime("crDay", "Day", null, "Ngày tập", "Ngày tập", true, addClass: "p-2")
+                                </div>
+                                <div class="icon col-md-2" style="line-height:55px"><span class="ion-md-calendar"></span></div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="input-wrap row">
+                                <div class="col-md-10">
+                                    @Html.CusTextBoxTime2("crTime", "Time", null, "Giờ tập", "Giờ tập", true, addClass: "p-2")
+                                </div>
+                                <div class="icon col-md-2" style="line-height:55px"><span class="ion-ios-clock"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-md-flex">
+                        <div class="form-group col-md-8">
+                            <textarea name="Note" id="" cols="30" rows="2" class="form-control p-2" placeholder="Thông tin kèm theo"></textarea>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="submit" value="Đăng ký" class="btn btn-primary py-3 px-4">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+@Scripts.Render("~/Assets/Client/js/jquery-3.2.1.min.js")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".cusheader-home").addClass("active");
+    })
+
+</script>
+
+@Scripts.Render("~/Assets/Origin/datetimepicker/js/jquery-1.8.3.min.js")
+

@@ -1,0 +1,67 @@
+﻿@model demo1.Models.Views.PracticeDemoModel
+@using demo1.CodeLogic.Helper
+@using demo1.CodeLogic
+@{ 
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var searchParam = ViewBag.SearchParam as demo1.CodeLogic.Commons.PracticeDemoParam ?? new demo1.CodeLogic.Commons.PracticeDemoParam();
+    var practiceDemoStatus = Model.PracticeDemoStatus;
+}
+
+
+<section class="wrapper mt-2">
+    <h3><i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    <!-- row -->
+    <div class="row mt">
+        <div class="col-md-12">
+            <div class="content-panel col-md-12 col-xs-12">
+                <div class="col-md-12">
+                    <form class="quickSearch dataFilter" data-target="#div-PracticeDemos" action="@Model.Action" method="post" enctype="multipart/form-data">
+                        <div class="col-md-2" style="margin-bottom:10px">
+                            @Html.CusTextBox("srName", "Name", searchParam.Name, "Họ và tên", "Họ và tên", false)
+                        </div>
+                        <div class="col-md-2" style="margin-bottom:10px">
+                            @Html.CusTextBoxDigit("srPhone", "Phone", searchParam.Phone, "Số điện thoại", "Số điện thoại", false)
+                        </div>
+                        <div class="col-md-2" style="margin-bottom:10px">
+                            @Html.CusDropdownList("srStatus", "Status", "Chọn trạng thái", practiceDemoStatus.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = searchParam.Status == x.Key }), "Chọn trạng thái")
+                        </div>
+                        <div class="col-md-2" style="margin-bottom:10px">
+                            @Html.CusTextBoxDateDefault("srStartDate", "StartDate", searchParam.StartDate, "Từ ngày", "Từ ngày")
+                        </div>
+                        <div class="col-md-2" style="margin-bottom:10px">
+                            @Html.CusTextBoxDateDefault("srEndDate", "EndDate", searchParam.EndDate, "Đến ngày", "Đến ngày")
+                        </div>
+
+
+                        <div class="col-md-2" style="margin-bottom:10px">
+                            <div class="col-md-12 no-padding">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+              
+            </div>
+            <div class="content-panel col-md-12 col-xs-12 no-padding cus-content-table" id="div-PracticeDemos">
+                @Html.Partial("PracticeDemos", Model)
+            </div>
+            <!-- /content-panel -->
+        </div>
+        <!-- /col-md-12 -->
+    </div>
+    <!-- /row -->
+</section>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusleft-schedule").addClass("active");
+            $(".cusleft-practicedemos").addClass("active-cus");
+        })
+
+    </script>
+}
+
+

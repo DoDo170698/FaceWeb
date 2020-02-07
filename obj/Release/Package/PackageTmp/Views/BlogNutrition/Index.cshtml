@@ -1,0 +1,124 @@
+﻿@model demo1.Models.Views.BlogNutritionModel
+@{
+    ViewBag.Title = "Chế độ dinh dưỡng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var categoryNutritions = Model.CategoryNutritions;
+    var nutritions = Model.Nutritions;
+    var userNutrition = Model.UserNutrition;
+    var user = Model.User;
+    var contentImg = Model.ContentImg;
+}
+
+<section class="home-slider owl-carousel">
+
+    <div class="slider-item" style="background-image: url('@contentImg.PathImg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center">
+
+                <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                    <h1 class="mb-3 mt-5 bread" style="font-family: none;">Chế độ dinh dưỡng</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="/Home/Index">Trang chủ</a></span> <span style="color:#cfc7c7">Chế độ dinh dưỡng</span></p>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="col-md-12 text-center mb-5">
+        @if (user.ID > 0)
+        {
+            <!-- Button trigger modal-->
+            <div class="form-group">
+                <button type="button" class="btn btn-primary py-3 px-5" data-toggle="modal" data-target="#modalNutrition">Chế độ dinh dưỡng cá nhân</button>
+            </div>
+
+            <!-- Modal: modalCart -->
+            <div class="modal fade" id="modalNutrition" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div class="modal-header">
+                            <h4 class="modal-title text-center" id="myModalLabel" style="color:#e5ce48">Chế độ dinh dưỡng cá nhân</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body text-left" style="text-align:justify">
+                            @if (userNutrition.ID > 0)
+                            {
+                                @Html.Raw(userNutrition.Content)
+                            }
+                            else
+                            {
+                                @("Bạn chưa được đặt chế độ dinh dưỡng")
+                            }
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                            @*<button class="btn btn-primary">Checkout</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal: modalCart -->
+        }
+
+    </div>
+    <div class="container mb-5">
+        <div  id="div-Nutritions">
+            @Html.Partial("Nutritions")
+        </div>
+    </div>
+
+    @*@foreach (var categoryNutrition in categoryNutritions)
+    {
+
+        <div class="container mb-5">
+            <div class="row justify-content-center mb-3">
+                <div class="col-md-7 heading-section text-center ftco-animate">
+                    <h2 class="mb-4">@categoryNutrition.Name</h2>
+                    <p>@categoryNutrition.Description.</p>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var blogNutrition in blogNutritions.Where(x => x.IDCategory.Equals(categoryNutrition.ID)))
+                {
+                    <div class="col-lg-6 d-flex">
+                        <div class="coach d-sm-flex align-items-stretch">
+                            <div class="img" style="background-image: url(@blogNutrition.PathImg);"></div>
+                            <div class="text py-4 px-5 ftco-animate">
+                                <span class="subheading">@blogNutrition.Title</span>
+                                <h3><a href="#">@blogNutrition.Name</a></h3>
+                                <p>@blogNutrition.Description.</p>
+                                <ul class="ftco-social-media d-flex mt-4">
+                                    <li class="ftco-animate"><a href="#" class="mr-2 d-flex justify-content-center align-items-center"><span class="icon-twitter"></span></a></li>
+                                    <li class="ftco-animate"><a href="#" class="mr-2 d-flex justify-content-center align-items-center"><span class="icon-facebook"></span></a></li>
+                                    <li class="ftco-animate"><a href="#" class="mr-2 d-flex justify-content-center align-items-center"><span class="icon-instagram"></span></a></li>
+                                </ul>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    }*@
+</section>
+
+@Html.Partial("ImagesFooter")
+
+@Scripts.Render("~/Assets/Client/js/jquery-3.2.1.min.js")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".cusheader-nutrition").addClass("active");
+    })
+</script>
+

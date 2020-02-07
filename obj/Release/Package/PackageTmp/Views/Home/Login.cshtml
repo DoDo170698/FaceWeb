@@ -1,0 +1,171 @@
+﻿
+@using demo1.CodeLogic.Helper
+@using demo1.Models.Fitness
+@model demo1.Models.Views.HomeModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var contentImg = Model.ContentImg;
+}
+
+
+<section class="home-slider owl-carousel">
+
+    <div class="slider-item" style="background-image: url('@contentImg.PathImg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center">
+
+                <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                    <h1 class="mb-3 mt-5 bread" style="font-family: none;">Tài khoản</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="/Home/Index">Trang chủ</a></span> <span style="color:#cfc7c7">Tài khoản</span></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section contact-section">
+
+    @{
+        var contactInfor = (ContactInfor.UseInstance.GetListOrDefault() ?? new List<ContactInfor>()).FirstOrDefault() ?? new ContactInfor();
+    }
+    <div class="container mt-5">
+        <div class="row block-9">
+            <div class="col-md-4 contact-info ftco-animate">
+                <div class="row">
+                    <div class="col-md-12 mb-4">
+                        <h2 class="h4">Đăng nhập</h2>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <p><span>Địa chỉ:</span>&nbsp;@contactInfor.Address</p>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <p><span>Số điện thoại liên hệ:</span> <a href="tel://@contactInfor.Phone">@contactInfor.Phone</a></p>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <p><span>Email:</span> <a href="mailto:@contactInfor.Email">@contactInfor.Email</a></p>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <p><span>Website:</span> <a href="@contactInfor.Website">@contactInfor.Website</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-7 ftco-animate">
+                <div class="row border border-warning">
+                    <div class="col-md-12 mb-2 mt-4">
+
+                        <div class="form-group">
+                            <form action="/dang-nhap" class="contact-form quickSubmit" method="post">
+                                @**@
+                                <div class="form-group" style="background-color: #e4dede0a">
+                                    @Html.CusTextBox("logUsername", "Username", null, "Tên đăng nhập hoặc số điện thoại", "Tên đăng nhập hoặc số điện thoại", false, true, addClass: "p-2")
+                                    @*<input type="text" class="form-control p-2" name="Username" placeholder="Tên đăng nhập">*@
+                                </div>
+                                <div class="form-group" style="background-color: #e4dede0a">
+                                    @Html.CusTextBoxPassWord("logPassword", "Password", null, "Mật khẩu", "Mật khẩu", false, true, addClass: "p-2")
+                                    @*<input type="password" class="form-control p-2" name="Password" placeholder="Mật khẩu">*@
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-6 text-center mb-2">
+                                        <input type="submit" value="Đăng nhập" class="btn btn-primary py-3 px-5">
+
+                                    </div>
+                                    <div class="col-md-6 text-center mb-2">
+                                        <button type="button" class="btn btn-primary py-3 px-5" data-toggle="modal" data-target="#modalCrUser">Đăng ký</button>
+
+                                    </div>
+
+                                </div>
+
+                                <div id="messeage_err">
+
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalCrUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCrUser"
+             aria-hidden="true">
+            <div class="contact-form">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div class="modal-header">
+                            <h4 class="modal-title text-center" id="myModalCrUser" style="color:#e5ce48">Đăng kí tài khoản</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <form id="FormCrUser" class="quickSubmit form-horizontal style-form bv-form validateForm useScrollBar" action="/dang-ky" method="post">
+
+                            <!--Body-->
+                            <div class="modal-body" style="background: #262525;">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-sm-2 control-label" style="color: #e5ce48;line-height: 40px;">Tên đăng nhập</label>
+                                    <div class="col-sm-8">
+                                        @Html.CusTextBox("crUsername", "Username", null, "Tên đăng nhập", "Tên đăng nhập", false, true)
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-sm-2 control-label" style="color: #e5ce48;line-height: 40px;">Mật khẩu</label>
+                                    <div class="col-sm-8">
+                                        @Html.CusTextBoxPassWord("crPassword", "Password", null, "Mật khẩu", "Mật khẩu", false, true)
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-sm-2 control-label" style="color: #e5ce48;line-height: 40px;">Tên người dùng</label>
+                                    <div class="col-sm-8">
+                                        @Html.CusTextBox("crName", "Name", null, "Tên người dùng", "Tên người dùng", false, true)
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-sm-2 control-label" style="color: #e5ce48;line-height: 40px;">Ngày sinh</label>
+                                    <div class="col-sm-8">
+                                        @Html.CusTextBoxDateTime("crBirthday", "Birthday", null, "Ngày sinh", "Ngày sinh", true)
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-sm-2 control-label" style="color: #e5ce48;line-height: 40px;">Số điện thoại</label>
+                                    <div class="col-sm-8">
+                                        @Html.CusTextBoxDigit("crPhone", "Phone", null, "Số điện thoại", "Số điện thoại", true )
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-sm-2 control-label" style="color: #e5ce48;line-height: 40px;">Địa chỉ</label>
+                                    <div class="col-sm-8">
+                                        @Html.CusTextBox("crAddress", "Address", null, "Địa chỉ", "Địa chỉ", false, false)
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Footer-->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                                <button type="submit" class="btn btn-primary">Đăng kí</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="map" class="map"></div>
+@Scripts.Render("~/Assets/Client/js/jquery-3.2.1.min.js")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".cusheader-account").addClass("active");
+
+
+    })
+
+</script>
+
+

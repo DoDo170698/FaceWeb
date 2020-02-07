@@ -1,0 +1,44 @@
+﻿@using demo1.Repository
+@using demo1.CodeLogic.Enums
+@using demo1.Models
+@{ 
+    var content_ttds = ContentsRepository.UseInstance.GetListByFieldsOrDefault(new List<CondParam> { 
+         new CondParam { Field = "Status", Value =(int)Enums.BaseStatus.Active, CompareType = (int)Enums.CompareTypes.Equal, TypeSQL = (int)Enums.TypeSQl.Number},
+         new CondParam { Field = "Type", Value =(int)Enums.TypeContent.ThongTinDaySo, CompareType = (int)Enums.CompareTypes.Equal, TypeSQL = (int)Enums.TypeSQl.Number},
+    });
+
+    
+    var imgTTDS = ContentImgRepository.UseInstance.GetFirstByFieldsOrDefault(new List<CondParam> { 
+         new CondParam { Field = "Status", Value =(int)Enums.BaseStatus.Active, CompareType = (int)Enums.CompareTypes.Equal, TypeSQL = (int)Enums.TypeSQl.Number},
+         new CondParam { Field = "Type", Value =(int)Enums.TypeContentImg.ImgTTDS, CompareType = (int)Enums.CompareTypes.Equal, TypeSQL = (int)Enums.TypeSQl.Number},
+    });
+}
+
+<section class="ftco-counter ftco-bg-dark img" id="section-counter" style="background-image: url('@imgTTDS.PathImg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">Con số ấn tượng</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="row">
+                    @foreach (var item in content_ttds)
+                    {
+                        <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                            <div class="block-18 text-center">
+                                <div class="text">
+                                    <strong class="number" data-number="@item.ContentNumber1">@item.ContentNumber1</strong>
+                                    <span>@item.Title</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

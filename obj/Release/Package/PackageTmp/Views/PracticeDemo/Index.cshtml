@@ -1,0 +1,218 @@
+﻿@model demo1.Models.Views.PracticeDemoModel
+@using demo1.Models.Fitness
+@using demo1.CodeLogic.Helper
+@{
+    ViewBag.Title = "Đăng kí tập thử";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var comments = Model.Comments;
+    var users = Model.Users;
+    var contentImg = Model.ContentImg;
+
+}
+
+<section class="home-slider owl-carousel">
+
+    <div class="slider-item" style="background-image: url('@contentImg.PathImg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center">
+
+                <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                    <h1 class="mb-3 mt-5 bread" style="font-family: none;">Đăng ký tập thử</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="/Home/Index">Trang chủ</a></span> <span style="color:#cfc7c7">Đăng ký tập thử</span></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-about d-md-flex">
+    <div class="one-half img" style="background-image: url(/Assets/Client/images/about.jpg);">
+        <a href="https://vimeo.com/45830194" class="icon popup-vimeo d-flex justify-content-center align-items-center">
+            <span class="icon-play">
+        </a>
+        </a>
+    </div>
+    <div class="one-half ftco-animate">
+        <div class="heading-section ftco-animate ">
+            <h2 class="mb-4"> <span>Phòng tập Linh Đàm KickFit</span> Xin chào</h2>
+        </div>
+        <div>
+            <p>
+                Khi chơi thể thao, não bộ của bạn có thể tiết ra lượng endorphine
+                cao gấp 5 lần bình thường. Đây là chất dẫn truyền thần kinh giúp ngủ ngon,
+                tinh thần hưng phấn, đặc biệt có lợi cho bệnh nhân bị trầm cảm..
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<section class="ftco-section contact-section">
+    @{
+        var contactInfor = (ContactInfor.UseInstance.GetListOrDefault() ?? new List<ContactInfor>()).FirstOrDefault() ?? new ContactInfor();
+    }
+    <div class="container mt-5">
+        <div class="row block-9">
+            <div class="col-md-4 contact-info ftco-animate">
+                <div class="row">
+                    <div class="col-md-12 mb-4">
+                        <h2 class="h4">Thông tin đăng kí tập thử</h2>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <p><span>Thời gian tập :</span> @contactInfor.RangeDay</p>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <p><span>Số điện thoại liên hệ:</span> <a href="tel://@contactInfor.Phone">@contactInfor.Phone</a></p>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <p><span>Email:</span> <a href="mailto:@contactInfor.Email">@contactInfor.Email</a></p>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <p><span>Website:</span> <a href="@contactInfor.Website">@contactInfor.Website</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-6 ftco-animate">
+                <form action="/PracticeDemo/Registration" class="contact-form form-horizontal style-form bv-form validateForm" enctype="multipart/form-data" method="post">
+                    @*quickSubmit*@
+                    @if (Model.User.ID == 0)
+                    {
+                        <div class="form-group" style="background-color: #e4dede0a">
+                            @Html.CusTextBox("crName", "Name", null, "Họ và tên", "Họ và tên", false, true, addClass: "p-2")
+                            @*<input type="text" class="form-control p-2" placeholder="Họ và tên">*@
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" style="background-color: #e4dede0a">
+                                    @Html.CusTextBoxDigit("crPhone", "Phone", null, "Số điện thoại", "Số điện thoại", true, addClass: "p-2")
+                                    @*<input type="text" class="form-control p-2" placeholder="Số điện thoại">*@
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" style="background-color: #e4dede0a">
+                                    @Html.CusTextBoxEmail("crEmail", "Email", null, "Email", "Email", false, false, addClass: "p-2")
+                                    @*<input type="text" class="form-control p-2" placeholder="Email">*@
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group" style="background-color: #e4dede0a">
+                            <input type="text" class="form-control p-2" name="Name" placeholder="Họ và tên" value="@Model.User.Name" readonly="readonly">
+                            <input type="text" hidden name="IDUser" value="@Model.User.ID">
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" style="background-color: #e4dede0a">
+                                <div class="input-wrap row">
+                                    <div class="col-md-10">
+
+                                        @Html.CusTextBoxDateTime("crDay", "Day", null, "Ngày tập", "Ngày tập", true, addClass: "p-2")
+                                    </div>
+                                    <div class="icon col-md-2" style="line-height:55px"><span class="ion-md-calendar"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" style="background-color: #e4dede0a">
+                                <div class="input-wrap row">
+                                    <div class="col-md-10">
+                                        @Html.CusTextBoxTime2("crTime", "Time", null, "Giờ tập", "Giờ tập", true, addClass: "p-2")
+                                    </div>
+                                    <div class="icon col-md-2" style="line-height:55px"><span class="ion-ios-clock"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="background-color: #e4dede0a">
+                        @Html.CusTextBox("crAddress", "Address", null, "Địa chỉ", "Địa chỉ", false, false, addClass: "p-2")
+                        @*<input type="text" class="form-control p-2" placeholder="Địa chỉ">*@
+                    </div>
+                    <div class="form-group" style="background-color: #e4dede0a">
+                        @Html.CusTextArea("crNote", "Note", null, "Thông tin kèm theo", "Thông tin kèm theo", false, addClass: "p-2")
+                        @*<textarea name="" id="" cols="30" rows="7" class="form-control p-2" placeholder="Thông tin kèm theo"></textarea>*@
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Đăng ký" class="btn btn-primary py-3 px-5">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@Html.Partial("ImagesFooter")
+
+<section class="ftco-section img" id="ftco-testimony" style="background-image: url(/Assets/Client/images/bg_2.jpg);" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <span class="subheading">Nhận xét</span>
+                <h2 class="mb-4">Đánh giá của khách hàng</h2>
+                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-wrap">
+        <div class="row d-flex no-gutters">
+            @if (comments.Count > 0)
+            {
+                var count = 0;
+                foreach (var item in comments)
+                {
+                    var user = users.FirstOrDefault(x => x.ID.Equals(item.IDUser));
+                    if (count % 2 == 0)
+                    {
+                        <div class="col-lg-2 align-self-sm-end ftco-animate">
+                            <div class="testimony">
+                                <blockquote>
+                                    <p>&ldquo;@item.Content.&rdquo;</p>
+                                </blockquote>
+                                <div class="author d-flex mt-4">
+                                    <div class="image mr-3 align-self-center">
+                                        <img src="@(user == null ? "/Assets/Client/images/no-avatar.png" : user.PathImg)" alt="">
+                                    </div>
+                                    <div class="name align-self-center">@(user == null ? item.Name : user.Name) <span class="position">@(user == null ? item.Email : user.Address)</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-lg-2 align-self-sm-end">
+                            <div class="testimony overlay">
+                                <blockquote>
+                                    <p>&ldquo;@item.Content.&rdquo;</p>
+                                </blockquote>
+                                <div class="author d-flex mt-4">
+                                    <div class="image mr-3 align-self-center">
+                                        <img src="@(user == null ? "/Assets/Client/images/no-avatar.png" : user.PathImg)" alt="">
+                                    </div>
+                                    <div class="name align-self-center">@(user == null ? item.Name : user.Name) <span class="position">@(user == null ? item.Email : user.Address)</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+
+        </div>
+    </div>
+</section>
+
+@Html.Partial("ContentNumber")
+
+@Scripts.Render("~/Assets/Client/js/jquery-3.2.1.min.js")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".cusheader-practicedemo").addClass("active");
+    })
+
+</script>
+

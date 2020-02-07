@@ -1,0 +1,12 @@
+.section{
+	height: calc((100%) - 60px);
+}
+body{
+	height: 100% !important;
+	background-color: #fff !important;
+}
+@media screen and (orientation: portrait){
+  .section{
+	height: calc((100%) - 10px);
+  }
+}

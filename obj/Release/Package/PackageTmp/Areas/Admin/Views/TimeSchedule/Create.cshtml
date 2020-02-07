@@ -1,0 +1,98 @@
+﻿@model demo1.Models.Views.TimeScheduleModel
+@using demo1.CodeLogic.Helper
+@using demo1.CodeLogic
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var days = Model.Days;
+    var baseStatus = Model.BaseStatus;
+    var timeSchedule = Model.TimeSchedule;
+}
+
+<section class="wrapper">
+    <h3><i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    <!-- BASIC FORM ELELEMNTS -->
+    <div class="row mt">
+        <div class="col-lg-12">
+            <div class="form-panel">
+                <h4 class="mb"><i class="fa fa-angle-right"></i> Thông tin thời gian tập nhóm</h4>
+                <form id="FormCrBlogCategory" class="quickSubmit form-horizontal style-form bv-form validateForm useScrollBar" action="@Model.Action" method="post">
+
+                    <input type="hidden" name="ID" value="@timeSchedule.ID" />
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Thứ</label>
+                        <div class="col-sm-10">
+                            @Html.CusDropdownList("crDay", "Day", "Chọn thứ", days.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = timeSchedule.Day == x.Key }), "Chọn thứ")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @if (timeSchedule.ID == 0)
+                        {
+                            <label class="col-sm-2 col-sm-2 control-label">Giờ bắt đầu</label>
+                        }
+                        else
+                        {
+                            <label class="col-sm-2 col-sm-2 control-label">Giờ bắt đầu : @Utils.DateToString(timeSchedule.StartTime, "HH:mm")</label>
+                        }
+                        <div class="col-sm-10">
+                            <div class="input-group bootstrap-timepicker">
+                                @Html.CusTextBoxTime2("crStartTime", "StartTime",null , "Giờ bắt đầu", "Giờ bắt đầu")
+                                <span class="input-group-btn">
+                                    <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @if (timeSchedule.ID == 0)
+                        {
+                            <label class="col-sm-2 col-sm-2 control-label">Giờ kết thúc</label>
+                        }
+                        else
+                        {
+                    <label class="col-sm-2 col-sm-2 control-label">Giờ kết thúc : @Utils.DateToString(timeSchedule.EndTime, "HH:mm")</label>
+                        }
+                        <div class="col-sm-10">
+                            <div class="input-group bootstrap-timepicker">
+                                @*<input type="text" class="form-control timepicker-24" value="1">*@
+                                @Html.CusTextBoxTime2("srEndTime", "EndTime", null, "Giờ kết thúc", "Giờ kết thúc")
+                                <span class="input-group-btn">
+                                    <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Trạng thái</label>
+                        <div class="col-sm-10">
+                            @Html.CusDropdownList("crStatus", "Status", "Chọn trạng thái", baseStatus.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = x.Key == timeSchedule.Status }), "Chọn trạng thái")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="text-right">
+                                <a href="/quan-tri/thoi-gian-tap-nhom" class="btn btn-success " style="color:aliceblue; margin-right:2%">Quay lại</a>
+                                <button type="submit" class="btn btn-info ">@Model.Button</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- col-lg-12-->
+    </div>
+</section>
+
+@section css{
+
+}
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusleft-schedule").addClass("active");
+            $(".cusleft-timeschedules").addClass("active-cus");
+        })
+
+    </script>
+}

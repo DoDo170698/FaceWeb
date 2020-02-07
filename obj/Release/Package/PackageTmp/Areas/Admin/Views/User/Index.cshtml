@@ -1,0 +1,78 @@
+﻿@model demo1.Models.Views.UserModel
+@using demo1.CodeLogic.Helper
+@using demo1.CodeLogic.Commons
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var searchParam = ViewBag.SearchParam as demo1.CodeLogic.Commons.UserParam ?? new demo1.CodeLogic.Commons.UserParam();
+    var roles = Model.Roles;
+    var baseStatus = Model.BaseStatus;
+}
+
+
+<section class="wrapper mt-2">
+    <h3><i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    <!-- row -->
+    <div class="row mt">
+        <div class="col-md-12">
+            <div class="content-panel col-md-12 col-xs-12">
+                <div class="col-md-12">
+                    <form class="quickSearch dataFilter" data-target="#div-users" action="@Model.Action" method="post" enctype="multipart/form-data">
+                        <div class="col-md-2" style="margin-bottom:10px">
+
+
+                            @Html.CusTextBox("srName", "Name", searchParam.Name, "Tên người dùng", "Tên người dùng", false)
+                        </div>
+                        <div class="col-md-2" style="margin-bottom:10px">
+
+
+                            @Html.CusTextBoxDigit("srPhone", "Phone", searchParam.Phone, "Số điện thoại", "Số điện thoại", false)
+                        </div>
+                        <div class="col-md-2" style="margin-bottom:10px">
+                            @Html.CusDropdownList("srStatus", "Status", "Chọn trạng thái", baseStatus.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = searchParam.Status == x.Key }), "Chọn trạng thái")
+
+                        </div>
+                        <div class="col-md-2" style="margin-bottom:10px">
+                            @Html.CusDropdownList("srIDRole", "IDRole", "Chọn loại tài khoản", roles.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = searchParam.IDRole == x.Key }), "Chọn loại tài khoản")
+
+                        </div>
+
+
+                        <div class="col-md-4" style="margin-bottom:10px">
+                            <div class="col-md-6 col-xs-6 no-padding text-left">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;Tìm kiếm</button>
+                            </div>
+                            <div class="col-md-6 col-xs-6 no-padding text-right">
+                                <a href="/quan-tri/tai-khoan/tao-moi" class="btn btn-primary" style="color:aliceblue"><i class="fa fa-plus-circle"></i>&nbsp;Thêm mới</a>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                @*<div class="col-md-2">
+
+                    </div>*@
+            </div>
+            <div class="content-panel col-md-12  col-xs-12 no-padding cus-content-table" id="div-users">
+                @Html.Partial("Users", Model)
+            </div>
+            <!-- /content-panel -->
+        </div>
+        <!-- /col-md-12 -->
+    </div>
+    <!-- /row -->
+</section>
+
+
+@*@Scripts.Render("~/Assets/Admin/jquery/js/jquery.js")*@
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusleft-user").addClass("active");
+            $(".cusleft-users").addClass("active-cus");
+        })
+
+    </script>
+}
+

@@ -1,0 +1,557 @@
+﻿@model demo1.Models.Views.WorkoutScheduleModel
+@using demo1.CodeLogic.Helper;
+@using demo1.CodeLogic.Customs;
+@using demo1.CodeLogic.Enums;
+@using demo1.CodeLogic;
+@using demo1.Models.Fitness;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = Model.User;
+    var userCoach = Model.UserCoach;
+    var workoutScheduleStatus = Model.WorkoutScheduleStatus;
+    var userTranning = Model.UserTranning;
+    var timeSchedules = Model.TimeSchedules;
+    var workoutSchedules = Model.WorkoutSchedules;
+    var workoutHistories = Model.WorkoutHistories;
+    var days = Model.Days;
+    var contentImg = Model.ContentImg;
+    var workoutSchedulesByGroup = workoutSchedules.Where(x => x.Type == (int)Enums.TypeWorkoutSchedule.Nhom).ToList();
+    var workoutSchedulesByItem = workoutSchedules.Where(x => x.Type == (int)Enums.TypeWorkoutSchedule.CaNhan).ToList();
+    var userHistories = Model.UserHistories;
+
+}
+
+@section cssClients{
+    <style>
+        .show-tick {
+            width: 100%;
+        }
+    </style>
+}
+
+
+<section class="home-slider owl-carousel">
+
+    <div class="slider-item" style="background-image: url('@contentImg.PathImg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center">
+
+                <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                    <h1 class="mb-3 mt-5 bread" style="font-family: none;">Lịch tập</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="/Home/Index">Trang chủ</a></span> <span style="color:#cfc7c7">Lịch tập</span></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+    <div class="container">
+
+        @if (user.ID != 0)
+        {
+            <!-- Dialog CrGroup -->
+
+            <div class="modal fade " id="modalCrScheduleGroup" tabindex="-1" role="dialog" aria-labelledby="modalCrScheduleGroup"
+                 aria-hidden="true">
+                <div class="contact-form">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <!--Header-->
+                            <div class="modal-header">
+                                <h4 class="modal-title text-center" id="myModalCrUser" style="color:#e5ce48">Đăng kí tập nhóm</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <form id="FormCrScheduleGroup" class="quickSubmit form-horizontal style-form bv-form validateForm useScrollBar" action="/WorkoutSchedule/CreatedGroup" enctype="multipart/form-data" method="post">
+                                @*quickSubmit*@
+
+                                <!--Body-->
+                                <div class="modal-body" style="background: #262525;">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-sm-2 control-label" style="color: #e5ce48;line-height: 40px;">Thời gian tập</label>
+                                        <div class="col-sm-8">
+                                            <div class="col-sm-12">
+                                                @Html.CusDropdownListPicker("crIDTimeSchedules", "IDTimeSchedule", null, timeSchedules.Select(x => new SelectListItem() { Text = (days[x.Day] + " : " + Utils.DateToString(x.StartTime, "HH:mm") + " - " + Utils.DateToString(x.EndTime, "HH:mm")), Value = x.ID.ToString(), Selected = !workoutSchedules.IsNullOrEmpty() && workoutSchedules.Select(n => n.IDTimeSchedule).Contains(x.ID) }), "Chọn thời gian")
+
+                                                @*@Html.CusDropdownList("srIDTimeSchedule1", "IDTimeSchedule", "Chọn thời gian buổi 1", timeSchedules.Select(x => new SelectListItem() { Text = (days[x.Day] + " : " + Utils.DateToString(x.StartTime, "HH:mm") + " - " + Utils.DateToString(x.EndTime, "HH:mm")), Value = x.ID.ToString(), Selected = !workoutSchedules.IsNullOrEmpty() && select1.IDTimeSchedule == x.ID })
+                                                    , "Chọn thời gian buổi 1")*@
+                                            </div>
+                                            @*<div class="col-sm-12">
+                                                    @Html.CusDropdownList("srIDTimeSchedule2", "IDTimeSchedule", "Chọn thời gian buổi 2", timeSchedules.Select(x => new SelectListItem() { Text = (days[x.Day] + " : " + Utils.DateToString(x.StartTime, "HH:mm") + " - " + Utils.DateToString(x.EndTime, "HH:mm")), Value = x.ID.ToString(), Selected = !workoutSchedules.IsNullOrEmpty() && select2.IDTimeSchedule == x.ID })
+                                                , "Chọn thời gian buổi 2")
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    @Html.CusDropdownList("srIDTimeSchedule3", "IDTimeSchedule", "Chọn thời gian buổi 3", timeSchedules.Select(x => new SelectListItem() { Text = (days[x.Day] + " : " + Utils.DateToString(x.StartTime, "HH:mm") + " - " + Utils.DateToString(x.EndTime, "HH:mm")), Value = x.ID.ToString(), Selected = !workoutSchedules.IsNullOrEmpty() && select3.IDTimeSchedule == x.ID })
+                                                , "Chọn thời gian buổi 3")
+                                                </div>*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Footer-->
+                                <div class="modal-footer">
+                                    @*<div id="messeage_err">
+
+                                        </div>*@
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                                    <button type="submit" class="btn btn-primary">Đăng kí</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dialog CrItem -->
+            <div class="modal fade" id="modalCrSchedule" tabindex="-1" role="dialog" aria-labelledby="modalCrSchedule"
+                 aria-hidden="true">
+                <div class="contact-form">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <!--Header-->
+                            <div class="modal-header">
+                                <h4 class="modal-title text-center" id="myModalCrUser" style="color:#e5ce48">Đăng kí tập cá nhân</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <form id="FormCrSchedule" class=" form-horizontal style-form bv-form validateForm useScrollBar" action="/WorkoutSchedule/Created" enctype="multipart/form-data" method="post">
+                                @*quickSubmit*@
+
+                                <!--Body-->
+                                <div class="modal-body" style="background: #262525;">
+                                    <div class="form-group row">
+                                        <label class=" col-sm-3 control-label text-center" style="color: #e5ce48;line-height: 40px;">Ngày tập</label>
+                                        <div class="col-sm-8">
+                                            <div class=" col-sm-12">
+                                                @Html.CusTextBoxDateTime("crTrainningDay", "TrainningDayDate", null, "Ngày tập", "Ngày tập", false)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class=" col-sm-3 control-label text-center" style="color: #e5ce48;line-height: 40px;">Giờ tập</label>
+                                        <div class="col-sm-8">
+                                            <div class="col-sm-12">
+                                                @Html.CusTextBoxTime2("crStartTime", "TrainningDayDateTime", DateTime.Now, "Giờ tập", "Giờ tập", false)
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Footer-->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                                    <button type="submit" class="btn btn-primary">Đăng kí</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row d-flex">
+
+            <div class="col-md-6" style="border-right: 0.5px solid #beb9b9ed;min-height: 440px;">
+                <div class="row">
+                    <div class="col-md-12 heading-section ftco-animate text-center">
+                        <h2 class="mb-4">Tập theo nhóm</h2>
+                        <p>Nhóm học viên</p>
+                    </div>
+                    <div class="col-md-12 blog-entry align-self-stretch">
+                        <div class="text py-4 d-block">
+                            <div class="row">
+                                <div class="col-md-2 text-center">
+                                    <h3 class="heading mt-2">
+                                        <i class="fa fa-dumbbell"></i>
+                                    </h3>
+                                </div>
+                                <div class="col-md-10">
+                                    <h3 class="heading mt-2">
+                                        Mỗi tuần 3 buổi tập nhóm từ thứ 2 đến thứ 7
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 text-center">
+                                    <h3 class="heading mt-2">
+                                        <i class="fa fa-clock"></i>
+                                    </h3>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="row ml-0">
+                                        <div class="col-md-3 p-0"><h3 class="heading mt-2">Sáng :</h3></div>
+                                        <div class="col-md-9 p-0"><h3 class="heading mt-2"> 6:00 - 7:00 <br /> 7:00 - 8:00</h3></div>
+
+                                    </div>
+                                    <div class="row ml-0">
+                                        <div class="col-md-3 p-0"><h3 class="heading mt-2">Chiều :</h3></div>
+                                        <div class="col-md-9 p-0"><h3 class="heading mt-2"> Ba ca tập luyện từ 17:00</h3></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row" style="bottom: 0;
+                                        position: absolute;
+                                        width: 100%;">
+                    <div class="col-md-12 text-center">
+                        <div class="form-group">
+                            @if (user.ID != 0)
+                            {
+                                <button type="button" class="btn btn-primary py-3 px-5" data-toggle="modal" data-target="#modalCrScheduleGroup">Đăng ký tập nhóm</button>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6" style="border-left: 0.5px solid #beb9b9ed;min-height: 440px;">
+                <div class="row">
+                    <div class="col-md-12 heading-section ftco-animate text-center">
+                        <h2 class="mb-4">Tập cá nhân</h2>
+                        <p>Cá nhân học viên</p>
+                    </div>
+                    <div class="col-md-12 blog-entry align-self-stretch">
+                        <div class="text py-4 d-block">
+                            <div class="row">
+                                <div class="col-md-2 text-center">
+                                    <h3 class="heading mt-2">
+                                        <i class="fa fa-dumbbell"></i>
+                                    </h3>
+                                </div>
+                                <div class="col-md-10">
+                                    <h3 class="heading mt-2">
+                                        Đăng ký tập cá nhân có huấn luyện viên
+                                        hướng dẫn 1 kèm 1
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 text-center">
+                                    <h3 class="heading mt-2">
+                                        <i class="fa fa-clock"></i>
+                                    </h3>
+                                </div>
+                                <div class="col-md-10">
+                                    <h3 class="heading mt-2">
+                                        Thời gian không cố định, do học viên đăng kí và lựa chọn thời gian đến phòng tập
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="        bottom: 0;
+        position: absolute;
+        width: 100%;">
+                    <div class="col-md-12 text-center">
+                        <div class="form-group">
+
+                            @if (user.ID != 0)
+                            {
+                                <button type="button" class="btn btn-primary py-3 px-5" data-toggle="modal" data-target="#modalCrSchedule">Đăng ký tập cá nhân</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (user.ID == 0)
+        {
+            <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                    <div class="form-group">
+                        <a href="/dang-ky-tap-thu" class="btn btn-primary py-3 px-5">Đăng ký tập thử</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+@if (user.ID != 0)
+{
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5 pb-3">
+                <div class="col-md-7 heading-section ftco-animate text-center">
+                    <h2 class="mb-4">Lịch tập nhóm theo tuần</h2>
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div class="col-md-12 ftco-animate">
+                    <div class="">
+                        <table class="table table-bordered">
+                            <thead class="thead-primary">
+                                <tr class="text-center">
+                                    <th>&nbsp;</th>
+                                    @foreach (var item in days)
+                                    {
+                                        <th>@item.Value</th>
+
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-center">
+                                    <td class="">
+                                        <p class="time">Sáng</p>
+                                    </td>
+                                    @foreach (var day in days)
+                                    {
+                                        var timeByDays = timeSchedules.Where(x => x.Day == day.Key);
+                                        <td class="color-1">
+                                            @{
+                                                var time = timeByDays.Where(x => (x.EndTime ?? DateTime.MinValue).Hour <= 12);
+                                            }
+                                            @foreach (var item in time)
+                                            {
+                                                if (workoutSchedules.Any(x => x.IDTimeSchedule == item.ID))
+                                                {
+                                                    <div class="mt-2 p-2" style="border-bottom:1px solid white;background: #f47645">
+                                                        <h3><a href="#">Đã đăng ký</a></h3>
+                                                        <p class="time m-0">@Utils.DateToString(item.StartTime, "HH:mm") - @Utils.DateToString(item.EndTime, "HH:mm")</p>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="mt-2 p-2" style="border-bottom:1px solid white">
+                                                        <h3><a href="#">Thời gian</a></h3>
+                                                        <p class="time m-0">@Utils.DateToString(item.StartTime, "HH:mm") - @Utils.DateToString(item.EndTime, "HH:mm")</p>
+                                                    </div>
+                                                }
+
+                                            }
+
+                                        </td>
+                                    }
+
+
+                                </tr><!-- END TR-->
+                                <tr class="text-center">
+                                    <td class="">
+                                        <p class="time">Chiều</p>
+                                    </td>
+                                    @foreach (var day in days)
+                                    {
+                                        var timeByDays = timeSchedules.Where(x => x.Day == day.Key);
+                                        <td class="color-1">
+                                            @{
+                                                var time = timeByDays.Where(x => (x.EndTime ?? DateTime.MinValue).Hour > 12);
+                                            }
+                                            @foreach (var item in time)
+                                            {
+                                                if (workoutSchedules.Any(x => x.IDTimeSchedule == item.ID))
+                                                {
+                                                    <div class="mt-2 p-2" style="border-bottom:1px solid white;background: #f47645">
+                                                        <h3><a href="#">Đã đăng ký</a></h3>
+                                                        <p class="time m-0">@Utils.DateToString(item.StartTime, "HH:mm") - @Utils.DateToString(item.EndTime, "HH:mm")</p>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="mt-2 p-2" style="border-bottom:1px solid white">
+                                                        <h3><a href="#">Thời gian</a></h3>
+                                                        <p class="time m-0">@Utils.DateToString(item.StartTime, "HH:mm") - @Utils.DateToString(item.EndTime, "HH:mm")</p>
+                                                    </div>
+                                                }
+                                            }
+
+                                        </td>
+                                    }
+
+
+                                </tr><!-- END TR-->
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5 pb-3">
+                <div class="col-md-7 heading-section ftco-animate text-center">
+                    <h2 class="mb-4">Lịch tập cá nhân</h2>
+                    <p>Huấn luyện viên : @userCoach.Name</p>
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div class="col-md-12 ftco-animate">
+                    <div class="">
+                        <table class="table table-bordered">
+                            <thead class="thead-primary">
+                                <tr class="text-center">
+                                    <th>Ngày tập</th>
+                                    <th>Giờ tập</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thời gian đăng ký</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody style="color: #e7e7e7;">
+                                @if (workoutSchedulesByItem.Count > 0)
+                                {
+                                    foreach (var item in workoutSchedulesByItem)
+                                    {
+                                        <tr>
+                                            <td>@Utils.DateToString(item.TrainningDay, "dd/MM/yyyy")</td>
+                                            <td>@Utils.DateToString(item.TrainningDay, "HH:mm")</td>
+                                            <td>
+                                                @if (item.Status == (int)Enums.WorkoutScheduleStatus.ChuaTap)
+                                                {
+                                                    <div style="color: #ebb723;">@workoutScheduleStatus.GetValue(item.Status)</div>
+                                                }
+                                                else
+                                                {
+                                                    <div style="color:#38db79" class="label label-success label-sm">@workoutScheduleStatus.GetValue(item.Status)</div>
+                                                }
+                                            </td>
+                                            <td>@Utils.DateToString(item.Created, "dd/MM/yyyy HH:mm")</td>
+                                            <td class="text-center">
+                                                @if (item.Status == (int)Enums.WorkoutScheduleStatus.ChuaTap)
+                                                {
+                                                    @*<a class="btn btn-primary btn-xs" href="@string.Format("/quan-tri/tai-khoan/cap-nhat/{0}",item.ID)">
+                                                        <i aria-hidden="true" title="@string.Format("Sửa")" class="fa fa-pencil-alt"></i>
+                                                    </a>*@
+                                                    <a class="quickDelete btn btn-danger btn-xs" style="color:aliceblue" data-target=".ui-dialog:visible" data-id="@item.ID" href="/WorkoutSchedule/IsDelete">
+                                                        <i aria-hidden="true" title="@string.Format("Xóa")" class="fa fa-trash-alt"></i>
+                                                    </a>
+                                                }
+
+                                            </td>
+                                        </tr>
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+
+                        @if (workoutSchedulesByItem.Count <= 0)
+                        {
+                            <div class="center">
+                                <p> Không có lịch tập nào </p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5 pb-3">
+                <div class="col-md-7 heading-section ftco-animate text-center">
+                    <h2 class="mb-4">Lịch sử tập luyện</h2>
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div class="col-md-12 ftco-animate">
+                    <div class="">
+                        <table class="table table-bordered">
+                            <thead class="thead-primary">
+                                <tr class="text-center">
+                                    <th>Ngày tập</th>
+                                    <th>Số buổi còn lại</th>
+                                    <th>Giờ tập luyện</th>
+                                </tr>
+                            </thead>
+                            <tbody style="color: #e7e7e7;">
+                                @if (workoutHistories.Count > 0)
+                                {
+                                    foreach (var item in workoutHistories)
+                                    {
+                                        <tr>
+                                            <td>@Utils.DateToString(item.WorkoutDay, "dd/MM/yyyy HH:mm")</td>
+                                            <td>@item.Rest</td>
+                                            <td>@item.WorkoutDay Giờ</td>
+                                        </tr>
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+
+                        @if (workoutHistories.Count <= 0)
+                        {
+                            <div class="center">
+                                <p> Không có lịch tập nào </p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5 pb-3">
+                <div class="col-md-7 heading-section ftco-animate text-center">
+                    <h2 class="mb-4">Quá trình thay đổi thể chất</h2>
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div class="col-md-12 ftco-animate">
+                    <div class="">
+                        <table class="table table-bordered">
+                            <thead class="thead-primary">
+                                <tr class="text-center">
+                                    <th>Thời gian</th>
+                                    <th>Chiều cao</th>
+                                    <th>Cân nặng</th>
+                                    <th>Bệnh lý</th>
+                                </tr>
+                            </thead>
+                            <tbody style="color: #e7e7e7;">
+                                @if (userHistories.Count > 0)
+                                {
+                                    foreach (var item in userHistories)
+                                    {
+                                        <tr>
+                                            <td>@Utils.DateToString(item.Created, "dd/MM/yyyy")</td>
+                                            <td>@item.Height</td>
+                                            <td>@item.Weight</td>
+                                            <td>@item.Pathological</td>
+                                        </tr>
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+
+                        @if (userHistories.Count <= 0)
+                        {
+                            <div class="center">
+                                <p> Không có dữ liệu </p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+@Scripts.Render("~/Assets/Client/js/jquery-3.2.1.min.js")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".cusheader-schedule").addClass("active");
+    })
+
+</script>
+
+

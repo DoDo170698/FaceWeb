@@ -1,0 +1,77 @@
+﻿@model demo1.Models.Views.WorkoutScheduleModel
+@using demo1.Models.Fitness
+@using demo1.CodeLogic.Enums
+@using demo1.CodeLogic.Customs
+@using demo1.CodeLogic
+@{
+    var searchParam = ViewBag.SearchParam as demo1.CodeLogic.Commons.WorkoutScheduleParam ?? new demo1.CodeLogic.Commons.WorkoutScheduleParam();
+    var workoutSchedules = Model.WorkoutSchedules;
+    var userStudents = Model.UserStudents;
+    var timeSchedules = Model.TimeSchedules;
+    var days = Model.Days;
+
+}
+
+<table class="table table-striped table-bordered table-advance table-hover">
+    <thead>
+        <tr>
+            <th class="text-center">STT</th>
+            <th class="text-center">Tên học viên</th>
+            <th class="text-center">Số điện thoại</th>
+            <th class="text-center">Thứ</th>
+            <th class="text-center">Giờ bắt đầu</th>
+            <th class="text-center">Giờ kết thúc</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (workoutSchedules.Count > 0)
+        {
+            var stt = 0;
+            foreach (var item in workoutSchedules)
+            {
+                stt++;
+                var user = userStudents.FirstOrDefault(x => x.ID == item.IDUser) ?? new User();
+                var timeSchedule = timeSchedules.FirstOrDefault(x => x.ID == item.IDTimeSchedule) ?? new TimeSchedule();
+                <tr>
+                    <td class="text-center">@stt</td>
+                    <td>@user.Name</td>
+                    <td>@user.Phone</td>
+                    <td class="text-center">@days.GetValue(timeSchedule.Day)</td>
+                    <td class="text-center">@Utils.DateToString(timeSchedule.StartTime,"HH:mm")</td>
+                    <td class="text-center">@Utils.DateToString(timeSchedule.EndTime,"HH:mm")</td>
+
+
+                </tr>
+            }
+
+        }
+
+    </tbody>
+</table>
+<div class="row DTTTFooter">
+    @if (workoutSchedules.Count <= 0)
+    {
+        <div class="dataTables_info col-sm-12 text-center padt10">
+            <strong class="gray">
+                @string.Format("Không có lịch đăng kí nào")
+            </strong>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-3">
+            <div class="dataTables_info text-center" id="searchable_info" role="status" aria-live="polite">
+                <div>
+                    <strong class="gray">
+                        @string.Format("Có tổng số {0} lịch đăng kí", ViewBag.Paging.Total)
+                    </strong>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-sm-3 ">
+            @ViewBag.Paging.RenderAdmin("#div-workoutScheduleGroups")
+        </div>
+    }
+</div>

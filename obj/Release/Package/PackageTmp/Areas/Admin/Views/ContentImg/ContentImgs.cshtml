@@ -1,0 +1,130 @@
+﻿
+@model demo1.Models.Views.ContentImgModel
+@using demo1.CodeLogic.Customs
+@using demo1.Repository
+@using demo1.CodeLogic.Enums
+@{
+    var contentImgs = Model.ContentImgs;
+    var typeContentImgs = Model.TypeContentImgs;
+    var baseStatus = Model.BaseStatus;
+    var deleteLink = "/Admin/ContentImg/IsDelete";
+}
+
+
+<table class="table table-striped table-bordered table-advance table-hover">
+    <thead>
+        <tr>
+            <th class="text-center">STT</th>
+            <th class="text-center">Loại nội dung</th>
+            <th class="text-center">Tiêu đề</th>
+            <th class="text-center" style="max-width:25%">Tên ảnh / video</th>
+            <th class="text-center" style="width:27%">Hình ảnh / video</th>
+            <th class="text-center">Trạng thái</th>
+            <th class="text-center">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (contentImgs.Count > 0)
+        {
+            var stt = 0;
+            foreach (var item in contentImgs)
+            {
+                stt++;
+                <tr>
+                    <td class="text-center">@stt</td>
+                    <td>@typeContentImgs.GetValue(item.Type)</td>
+                    <td>@item.Title</td>
+                    <td class="">@item.FileNameImg</td>
+                    <td class="text-center">
+                        @if (item.TypePath == (int)Enums.TypePath.Video)
+                        {
+                            @*<iframe width="320" height="240"
+                                    src="@(item.Content +"?playlist=tgbNymZ7vqY&loop=1")">
+                            </iframe>
+                            <video width="320" height="240" controls>
+                                <source src="@item.Content" type="video/mp4">
+                                <source src="@item.Content" type="video/ogg">
+                            </video>*@
+                            <div style="cursor: pointer;" href="@item.PathImg" data-fancybox="2u_file_video">
+                                <img style="max-width:80%" src="@item.PathImg" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="cursor: pointer;" href="@item.PathImg" data-fancybox="2u_file_video">
+                                <img style="max-width:80%" src="@item.PathImg" />
+                            </div>
+                            @*<img style="max-width:80%" src="@item.PathImg" />*@
+                        }
+                    </td>
+                    <td class="text-center">
+                        @if (item.Status == (int)Enums.BaseStatus.UnActive)
+                        {
+                            <div class="label label-danger label-sm">@baseStatus.GetValue(item.Status)</div>
+                        }
+                        else
+                        {
+                            <div class="label label-success label-sm">@baseStatus.GetValue(item.Status)</div>
+                        }
+                    </td>
+                    <td class="text-center">
+                        @*<button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>*@
+                        <div class="btn-group dropup" style="margin-bottom:3px">
+                            <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-blue dropdown-menu-right" style="top:100%;bottom:auto;">
+                                @if (item.Status == (int)Enums.BaseStatus.Active)
+                                {
+                                    <li><a href="@string.Format("/Admin/ContentImg/ChangeStatus?ID={0}&Status={1}",item.ID, (int)Enums.BaseStatus.UnActive)">Khóa</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@string.Format("/Admin/ContentImg/ChangeStatus?ID={0}&Status={1}",item.ID, (int)Enums.BaseStatus.Active)">Kích hoạt</a></li>
+                                }
+                            </ul>
+                        </div>
+                        <a class="btn btn-primary btn-xs mb-1" style="margin-bottom:3px" href="@string.Format("/quan-tri/noi-dung-hinh-anh/cap-nhat/{0}",item.ID)">
+                            <i aria-hidden="true" title="@string.Format("Sửa")" class="fa fa-pencil"></i>
+                        </a>
+                        <a class="quickDelete btn btn-danger btn-xs mb-1" style="color:aliceblue;margin-bottom:3px" data-target=".ui-dialog:visible" data-id="@item.ID" href="@deleteLink">
+                            <i aria-hidden="true" title="@string.Format("Xóa")" class="fa fa-trash-o"></i>
+                        </a>
+                        @*<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>*@
+                    </td>
+                </tr>
+            }
+
+        }
+
+    </tbody>
+</table>
+<div class="row DTTTFooter">
+    @if (contentImgs.Count <= 0)
+    {
+        <div class="dataTables_info col-sm-12 text-center padt10">
+            <strong class="gray">
+                @string.Format("Không có nội dung nào")
+            </strong>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-3">
+            <div class="dataTables_info text-center" id="searchable_info" role="status" aria-live="polite">
+                <div>
+                    <strong class="gray">
+                        @string.Format("Có tổng số {0} nội dung", ViewBag.Paging.Total)
+                    </strong>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-sm-3 ">
+            @ViewBag.Paging.RenderAdmin("#div-ContentImgs")
+        </div>
+    }
+</div>
+
+

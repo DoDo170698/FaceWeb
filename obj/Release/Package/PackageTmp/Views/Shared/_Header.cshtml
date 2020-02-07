@@ -1,0 +1,39 @@
+﻿
+@using demo1.Models.Fitness
+@using demo1.CodeLogic.Enums
+@using demo1.CodeLogic
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand text-center" href="/">Linh Đàm<small class="text-center" style="font-size:13px">KickFit</small></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item cusheader-home "><a href="/trang-chu" class="nav-link">Trang chủ</a></li> @*active*@
+                <li class="nav-item cusheader-service"><a href="/dich-vu" class="nav-link">Dịch vụ</a></li>
+                <!-- <li class="nav-item"><a href="program.html" class="nav-link">Program</a></li> -->
+                <li class="nav-item cusheader-blog"><a href="/bai-viet" class="nav-link">Bài viết</a></li>
+                <!-- <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li> -->
+                <li class="nav-item cusheader-nutrition"><a href="/che-do-dinh-duong" class="nav-link">Chế độ dinh dưỡng</a></li>
+                <!-- <li class="nav-item"><a href="coaches.html" class="nav-link">Coaches</a></li> -->
+                <li class="nav-item cusheader-schedule"><a href="/lich-tap" class="nav-link">Lịch tập</a></li>
+                <!-- <li class="nav-item"><a href="schedule.html" class="nav-link">Schedule</a></li> -->
+                <li class="nav-item cusheader-practicedemo"><a href="/dang-ky-tap-thu" class="nav-link">Đăng ký tập thử</a></li>
+                <!-- <li class="nav-item"><a href="about.html" class="nav-link">About</a></li> -->
+                <li class="nav-item cusheader-contact"><a href="/ket-noi" class="nav-link">Góp ý - Phản hồi</a></li>
+                @if (SystemConfig.IsRole((User)Session["CurrentUser"], new int[] { (int)Enums.Role.Student }))
+                {
+                    <li class="nav-item cusheader-account"><a href="/tai-khoan" class="nav-link">Tài khoản</a></li>
+
+                }
+                else
+                {
+                    <li class="nav-item cusheader-account"><a href="/dang-nhap" class="nav-link">Tài khoản</a></li>
+                }
+
+                <!-- <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> -->
+            </ul>
+        </div>
+    </div>
+</nav>

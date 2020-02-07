@@ -1,0 +1,35 @@
+﻿
+@using demo1.Repository
+@using demo1.CodeLogic.Enums
+@using demo1.Models
+@{
+
+    var contentImgs = ContentImgRepository.UseInstance.GetListByFieldsOrDefault(new List<CondParam>
+    {
+        new CondParam { Field = "Status", Value =(int)Enums.BaseStatus.Active, CompareType = (int)Enums.CompareTypes.Equal, TypeSQL = (int)Enums.TypeSQl.Number},
+        new CondParam { Field = "Type", Value =(int)Enums.TypeContentImg.ImgFooter, CompareType = (int)Enums.CompareTypes.Equal, TypeSQL = (int)Enums.TypeSQl.Number},
+    });
+}
+<section class="ftco-gallery">
+    <div class="container-wrap">
+        <div class="row no-gutters">
+            @if (contentImgs.Count > 0)
+            {
+                foreach (var item in contentImgs)
+                {
+                    <div class="col-md-3 ftco-animate">
+                        <div style="cursor: pointer;" href="@item.PathImg" data-fancybox="2u_file_video">
+                            <div class="gallery img d-flex align-items-center" style="background-image: url('@item.PathImg');">
+                                <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                                    <span class="icon-search"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,42 @@
+.immybox.immybox_witharrow {
+    background-image: url(/Assets/jquery/img/arrow.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+
+.immybox_results {
+    background-color: white;
+    border: 1px solid #ccc;
+    max-height: 20em;
+    overflow: auto;
+    position: absolute;
+    z-index: 9001
+}
+
+.immybox_results p.immybox_moreinfo, .immybox_results p.immybox_noresults {
+    color: #ccc;
+    font-style: italic;
+    margin: 0;
+    padding: 0 1em;
+}
+
+.immybox_results ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0
+}
+
+.immybox_results ul li {
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -webkit-user-select: none;
+    padding: 0.25em 1em;
+    user-select: none
+}
+
+.immybox_results ul li.immybox_choice { cursor: pointer }
+
+.immybox_results ul li.immybox_choice.active { background-color: #f1f1f1 }
+
+.immybox_results ul li.immybox_choice .highlight { text-decoration: underline }

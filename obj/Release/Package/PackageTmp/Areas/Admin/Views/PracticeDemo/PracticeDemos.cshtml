@@ -1,0 +1,122 @@
+﻿@model demo1.Models.Views.PracticeDemoModel
+@using demo1.CodeLogic.Enums
+@using demo1.CodeLogic.Customs
+@using demo1.CodeLogic
+@{
+    var practiceDemoStatus = Model.PracticeDemoStatus;
+    var users = Model.Users;
+    var practiceDemos = Model.PracticeDemos;
+    var deleteLink = "/Admin/PracticeDemo/IsDelete";
+}
+
+<table class="table table-striped table-bordered table-advance table-hover">
+    <thead>
+        <tr>
+            <th class="text-center">STT</th>
+            <th class="text-center">Họ và tên</th>
+            <th class="text-center">SĐT</th>
+            <th class="text-center">Thời gian đăng kí</th>
+            <th class="text-center">Trạng thái</th>
+            <th class="text-center">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (practiceDemos.Count > 0)
+        {
+            var stt = 0;
+            foreach (var item in practiceDemos)
+            {
+                stt++;
+                var user = users.SingleOrDefault(x => x.ID == item.IDUser) ?? new demo1.Models.Fitness.User();
+                <tr>
+                    <td class="text-center">@stt</td>
+                    @if (user.ID == 0)
+                    {
+                        <td>@item.Name</td>
+                        <td>@item.Phone</td>
+                    }
+                    else
+                    {
+                        <td>@user.Name</td>
+                        <td>@user.Phone</td>
+                    }
+                    <td class="text-center">@Utils.DateToString(item.DayTime,"dd/MM/yyyy HH:mm")</td>
+                    <td class="text-center">
+                        @if (item.Status == (int)Enums.PracticeDemoStatus.ChuaLienHe)
+                        {
+                            <div class="label label-warning label-sm">@practiceDemoStatus.GetValue(item.Status)</div>
+                        }
+                        else if (item.Status == (int)Enums.PracticeDemoStatus.DaLienHe)
+                        {
+                            <div class="label label-info label-sm">@practiceDemoStatus.GetValue(item.Status)</div>
+                        }
+                        else
+                        {
+                            <div class="label label-success label-sm">@practiceDemoStatus.GetValue(item.Status)</div>
+                        }
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group dropup">
+                                <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-blue dropdown-menu-right" style="top:100%;bottom:auto;">
+                                    @if (item.Status == (int)Enums.PracticeDemoStatus.ChuaLienHe)
+                                    {
+                                        <li><a href="@string.Format("/Admin/PracticeDemo/ChangeStatus?ID={0}&Status={1}",item.ID, (int)Enums.PracticeDemoStatus.DaLienHe)">Đã liên hệ</a></li>
+                                        <li><a href="@string.Format("/Admin/PracticeDemo/ChangeStatus?ID={0}&Status={1}",item.ID, (int)Enums.PracticeDemoStatus.DaDenTap)">Đã đến tập</a></li>
+                                    }
+                                    else if (item.Status == (int)Enums.PracticeDemoStatus.DaLienHe)
+                                    {
+                                        <li><a href="@string.Format("/Admin/PracticeDemo/ChangeStatus?ID={0}&Status={1}",item.ID, (int)Enums.PracticeDemoStatus.ChuaLienHe)">Chưa liên hệ</a></li>
+                                        <li><a href="@string.Format("/Admin/PracticeDemo/ChangeStatus?ID={0}&Status={1}",item.ID, (int)Enums.PracticeDemoStatus.DaDenTap)">Đã đến tập</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="@string.Format("/Admin/PracticeDemo/ChangeStatus?ID={0}&Status={1}",item.ID, (int)Enums.PracticeDemoStatus.DaLienHe)">Đã liên hệ</a></li>
+                                        <li><a href="@string.Format("/Admin/PracticeDemo/ChangeStatus?ID={0}&Status={1}",item.ID, (int)Enums.PracticeDemoStatus.DaDenTap)">Đã đến tập</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        <a class="btn btn-info btn-xs" href="@string.Format("/quan-tri/lich-dang-ki-tap-thu/xem/{0}",item.ID)">
+                            <i aria-hidden="true" title="@string.Format("Xem")" class="fa fa-eye"></i>
+                        </a>
+                        <a class="quickDelete btn btn-danger btn-xs" style="color:aliceblue" data-target=".ui-dialog:visible" data-id="@item.ID" href="@deleteLink">
+                            <i aria-hidden="true" title="@string.Format("Xóa")" class="fa fa-trash-o"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        }
+
+    </tbody>
+</table>
+<div class="row DTTTFooter">
+    @if (practiceDemos.Count <= 0)
+    {
+        <div class="dataTables_info col-sm-12 text-center padt10">
+            <strong class="gray">
+                @string.Format("Không có lịch tập thử nào")
+            </strong>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-3">
+            <div class="dataTables_info text-center" id="searchable_info" role="status" aria-live="polite">
+                <div>
+                    <strong class="gray">
+                        @string.Format("Có tổng số {0} lịch tập thử", ViewBag.Paging.Total)
+                    </strong>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-sm-3 ">
+            @ViewBag.Paging.RenderAdmin("#div-PracticeDemos")
+        </div>
+    }
+</div>
+

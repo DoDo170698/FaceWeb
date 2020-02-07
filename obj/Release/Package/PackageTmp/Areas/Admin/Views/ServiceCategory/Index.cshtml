@@ -1,0 +1,61 @@
+﻿@model demo1.Models.Views.CategoryModel
+@using demo1.CodeLogic.Helper
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var searchParam = ViewBag.SearchParam as demo1.CodeLogic.Commons.CategoryParam ?? new demo1.CodeLogic.Commons.CategoryParam();
+    var baseStatus = Model.BaseStatus;
+}
+
+
+<section class="wrapper mt-2">
+    <h3><i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    <!-- row -->
+    <div class="row mt">
+        <div class="col-md-12">
+            <div class="content-panel col-md-12 col-xs-12">
+                <div class="col-md-12">
+                    <form class="quickSearch dataFilter" data-target="#div-serviceCategorys" action="@Model.Action" method="post" enctype="multipart/form-data">
+                        <div class="col-md-3" style="margin-bottom:10px">
+
+
+                            @Html.CusTextBox("srName", "Name", searchParam.Name, "Tên danh mục dịch vụ", "Tên danh mục dịch vụ", false)
+                        </div>
+                        <div class="col-md-3" style="margin-bottom:10px">
+                            @Html.CusDropdownList("srStatus", "Status", "Chọn trạng thái", baseStatus.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = searchParam.Status == x.Key }), "Chọn trạng thái")
+                        </div>
+
+
+                        <div class="col-md-6" style="margin-bottom:10px">
+                            <div class="col-md-6 col-xs-6 no-padding">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;Tìm kiếm</button>
+                            </div>
+                            <div class="col-md-6 col-xs-6 no-padding text-right">
+                                <a href="/quan-tri/danh-muc-dich-vu/tao-moi" class="btn btn-primary" style="color:aliceblue"><i class="fa fa-plus-circle"></i>&nbsp;Thêm mới</a>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="content-panel col-md-12 col-xs-12 no-padding cus-content-table" id="div-serviceCategorys">
+                @Html.Partial("ServiceCategorys", Model)
+            </div>
+            <!-- /content-panel -->
+        </div>
+        <!-- /col-md-12 -->
+    </div>
+    <!-- /row -->
+</section>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusleft-category").addClass("active");
+            $(".cusleft-servicecategorys").addClass("active-cus");
+        })
+
+    </script>
+}
+

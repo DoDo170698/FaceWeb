@@ -1,0 +1,44 @@
+﻿@model demo1.Models.Views.BlogModel
+@using demo1.CodeLogic.Customs
+@using demo1.CodeLogic
+@using demo1.Models.Fitness
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var categoryBlogs = Model.CategoryBlogs;
+    var blogs = Model.Blogs;
+    var users = Model.Users;
+    var contentImg = Model.ContentImg;
+    var comments = Model.Comments;
+}
+
+<section class="home-slider owl-carousel">
+
+    <div class="slider-item" style="background-image: url('@contentImg.PathImg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center">
+
+                <div class="col-md-7 col-sm-12 text-center ftco-animate">
+                    <h1 class="mb-3 mt-5 bread" style="font-family: none;">Bài viết</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="/Home/Index">Trang chủ</a></span> <span style="color:#cfc7c7">Blog hội viên</span></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div id="div-Blogs">
+        @Html.Partial("Blogs")
+    </div>
+</section>
+
+@Scripts.Render("~/Assets/Client/js/jquery-3.2.1.min.js")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".cusheader-blog").addClass("active");
+    })
+
+</script>
+

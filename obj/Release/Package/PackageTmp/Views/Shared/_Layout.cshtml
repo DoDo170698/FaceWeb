@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="~/Content/logo.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
+
+    <link rel="stylesheet" href="/Assets/Client/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/Assets/Client/css/animate.css">
+    <link href="~/Assets/Origin/fontawesome/css/font-awesome-v5.11.2.css" rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="/Assets/Client/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/Assets/Client/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/Assets/Client/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/Assets/Client/css/aos.css">
+
+    <link rel="stylesheet" href="/Assets/Client/css/ionicons.min.css">
+    <link rel="stylesheet" href="/Assets/Client/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/Assets/Client/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="/Assets/Client/css/flaticon.css">
+    <link rel="stylesheet" href="/Assets/Client/css/icomoon.css">
+    <link rel="stylesheet" href="/Assets/Client/css/cust.css">
+    <link rel="stylesheet" href="/Assets/Client/css/style.css">
+
+
+    <!-- datetime picker css -->
+
+    @Styles.Render("~/Assets/Admin/lib/bootstrap-datepicker/css/datepicker.css")
+    @Styles.Render("~/Assets/Admin/lib/bootstrap-timepicker/compiled/timepicker.css")
+    @Styles.Render("~/Assets/Admin/lib/bootstrap-datetimepicker/css/datetimepicker.css")
+    @Styles.Render("~/Assets/Origin/selectpicker/css/bootstrap-select.min.css")
+    @*<link rel="stylesheet" href="/Assets/Origin/datetimepicker/css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" href="/Assets/Origin/datetimepicker/css/bootstrap-datetimepicker.css">*@
+
+
+    <!-- loader -->
+    @*<link rel="stylesheet" href="~/Assets/Origin/fancybox/css/jquery.fancybox-1.3.4.css">*@
+    <link rel="stylesheet" href="~/Assets/Origin/fancybox/css/jquery.lightbox.min.css">
+
+    <!-- CSS selectpicker -->
+    @Styles.Render("~/Assets/Origin/selectpicker/css/bootstrap-select.min.css")
+
+
+    <!-- box notifi -->
+    @Styles.Render("~/Assets/Admin/lib/gritter/css/jquery.gritter.css")
+
+
+    @RenderSection("cssClients", false)
+</head>
+<body>
+
+
+    @Html.Partial("_Header")
+    <!-- END nav -->
+
+    @RenderBody()
+
+
+    @Html.Partial("_Footer")
+
+
+    <div id="messeage_notifi" class="hidden">
+
+    </div>
+    @Html.Partial("Message")
+
+
+    <!-- box che do dinh duong -->
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+    @Scripts.Render("~/Assets/Client/js/jquery-3.2.1.min.js")
+
+    @RenderSection("scriptClients", false)
+
+    @Scripts.Render("~/Assets/Client/js/jquery.min.js")
+    @Scripts.Render("~/Assets/Client/js/jquery-migrate-3.0.1.min.js")
+    @Scripts.Render("~/Assets/Client/js/popper.min.js")
+    @Scripts.Render("~/Assets/Client/js/bootstrap.min.js")
+    @Scripts.Render("~/Assets/Client/js/jquery.easing.1.3.js")
+    @Scripts.Render("~/Assets/Client/js/jquery.waypoints.min.js")
+    @Scripts.Render("~/Assets/Client/js/jquery.stellar.min.js")
+    @Scripts.Render("~/Assets/Client/js/owl.carousel.min.js")
+    @Scripts.Render("~/Assets/Client/js/jquery.magnific-popup.min.js")
+    @Scripts.Render("~/Assets/Client/js/aos.js")
+    @Scripts.Render("~/Assets/Client/js/jquery.animateNumber.min.js")
+    @Scripts.Render("~/Assets/Client/js/bootstrap-datepicker.js")
+    @Scripts.Render("~/Assets/Client/js/jquery.timepicker.min.js")
+    @Scripts.Render("~/Assets/Client/js/scrollax.min.js")
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_ss7r5T1fy_dOla1ik-_gWVVkGK4moo0&sensor=false"></script>
+    @Scripts.Render("~/Assets/Client/js/google-map.js")
+    @Scripts.Render("~/Assets/Client/js/main.js")
+
+
+    <!-- fancybox -->
+    @Scripts.Render("~/Assets/Origin/fancybox/js/jquery.lightbox-plus-jquery.min.js")
+    @Scripts.Render("~/Assets/Origin/fancybox/js/main-fancybox.js")
+
+    <!-- bootstrap-datetimepicker -->
+    @Scripts.Render("~/Assets/Origin/datetimepicker/js/bootstrap-datepicker.vi.js")
+    @*@Scripts.Render("~/Assets/Origin/datetimepicker/js/bootstrap-datetimepicker.js")*@
+
+    @Scripts.Render("~/Assets/Admin/lib/bootstrap-datepicker/js/bootstrap-datepicker.js")
+    @Scripts.Render("~/Assets/Admin/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js")
+    @Scripts.Render("~/Assets/Admin/lib/bootstrap-timepicker/js/bootstrap-timepicker.js")
+    @Scripts.Render("~/Assets/Admin/lib/js/advanced-form-components.js")
+
+
+    <!-- JS selectpicker -->
+    @Scripts.Render("~/Assets/Origin/selectpicker/js/bootstrap-select.min.js")
+
+    <!-- box notifi -->
+    @Scripts.Render("~/Assets/Admin/lib/gritter/js/jquery.gritter.js")
+    @Scripts.Render("~/Assets/Admin/lib/js/gritter-conf.js")
+
+
+    <!-- base -->
+    <script src="/Assets/Admin/beyond/js/validation/bootstrapValidator.min.js"></script>
+
+    <script src="/Assets/Admin/jquery/js/jquery.cscrollbar.js"></script>
+    <script src="/Assets/Admin/app/js/upfile.js"></script>
+    <script src="/Assets/Admin/app/js/autocomplete.js"></script>
+    <script src="/Assets/Admin/app/js/utils.js"></script>
+    <script src="/Assets/Admin/app/js/main.js"></script>
+    <script src="/Assets/Admin/app/js/stgfile.js"></script>
+    <script src="/Assets/Admin/app/js/admin.js"></script>
+    <script src="/Assets/Admin/app/js/avatar.js"></script>
+    <script src="/Assets/Admin/app/js/pages.js"></script>
+    <script src="/Assets/Admin/jquery/js/jquery.ui.js"></script>
+    <script src="/Assets/Admin/app/js/modernizr-custom.js"></script>
+
+    <script src="/Assets/Origin/fontawesome/js/font-awesome-v5.11.2.js"></script>
+
+
+</body>
+</html>

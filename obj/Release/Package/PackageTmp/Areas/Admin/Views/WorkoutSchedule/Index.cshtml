@@ -1,0 +1,79 @@
+﻿@model demo1.Models.Views.WorkoutScheduleModel
+@using demo1.CodeLogic.Helper
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var searchParam = ViewBag.SearchParam as demo1.CodeLogic.Commons.WorkoutScheduleParam ?? new demo1.CodeLogic.Commons.WorkoutScheduleParam();
+    var workoutSchedules = Model.WorkoutSchedules;
+    var userStudents = Model.UserStudents;
+    var userCoachs = Model.UserCoachs;
+    var workoutScheduleStatus = Model.WorkoutScheduleStatus;
+
+}
+
+
+<section class="wrapper mt-2">
+    <h3><i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    <!-- row -->
+    <div class="row mt">
+        <div class="col-md-12">
+            <div class="content-panel col-md-12 col-xs-12">
+                <div class="col-md-12">
+                    <form class="quickSearch dataFilter" data-target="#div-workoutSchedules" action="@Model.Action" method="post" enctype="multipart/form-data">
+                        <div class="col-md-4" style="margin-bottom:10px">
+                            @Html.CusTextBox("srNameStudent", "NameStudent", searchParam.NameStudent, "Nhập tên học viên", "Nhập tên học viên", false)
+                        </div>
+                        <div class="col-md-4" style="margin-bottom:10px">
+                            @Html.CusDropdownList("srIDStudent", "IDStudent", "Chọn học viên", userStudents.Select(x => new SelectListItem() { Text = x.Name, Value = x.ID.ToString(), Selected = searchParam.IDStudent == x.ID }), "Chọn học viên")
+                        </div>
+                        <div class="col-md-4" style="margin-bottom:10px">
+                            @Html.CusDropdownList("srWorkoutScheduleStatus", "WorkoutScheduleStatus", "Chọn trạng thái", workoutScheduleStatus.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = searchParam.WorkoutScheduleStatus == x.Key }), "Chọn trạng thái")
+                        </div>
+
+
+                        <div class="col-md-4" style="margin-bottom:10px">
+                            
+                            @if (Model.CheckAdmin)
+                            {
+                                @Html.CusTextBox("srNameCoach", "NameCoach", searchParam.NameCoach, "Nhập tên huấn luyện viên", "Nhập tên huấn luyện viên", false)
+                            }
+                        </div>
+                        <div class="col-md-4" style="margin-bottom:10px">
+                            @if (Model.CheckAdmin)
+                            {
+                                @Html.CusDropdownList("srIDCoach", "IDCoach", "Chọn huấn luyện viên", userCoachs.Select(x => new SelectListItem() { Text = x.Name, Value = x.ID.ToString(), Selected = searchParam.IDCoach == x.ID }), "Chọn trạng thái")
+                            }
+                        </div>
+
+
+
+
+                        <div class="col-md-4" style="margin-bottom:10px">
+                            <div class="col-md-12 no-padding text-right">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="content-panel col-md-12 col-xs-12 no-padding cus-content-table" id="div-workoutSchedules">
+                @Html.Partial("WorkoutSchedules", Model)
+            </div>
+            <!-- /content-panel -->
+        </div>
+        <!-- /col-md-12 -->
+    </div>
+    <!-- /row -->
+</section>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusleft-schedule").addClass("active");
+            $(".cusleft-workoutschedules").addClass("active-cus");
+        })
+
+    </script>
+}
+

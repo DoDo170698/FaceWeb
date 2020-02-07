@@ -1,0 +1,134 @@
+﻿@model demo1.Models.Views.ContentImgModel
+@using demo1.CodeLogic.Helper
+@using demo1.CodeLogic
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var typeContentImgs = Model.TypeContentImgs;
+    var typePaths = Model.TypePaths;
+    var baseStatus = Model.BaseStatus;
+    var contentImg = Model.ContentImg;
+}
+
+<section class="wrapper">
+    <h3><i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    <!-- BASIC FORM ELELEMNTS -->
+    <div class="row mt">
+        <div class="col-lg-12">
+            <div class="form-panel">
+                <h4 class="mb"><i class="fa fa-angle-right"></i> Thông tin nội dung hình ảnh</h4>
+                <form id="FormCrContentImg" class="quickSubmit form-horizontal style-form bv-form validateForm useScrollBar"  action="@Model.Action" method="post"> @*quickSubmit*@
+
+                    <input type="hidden" name="ID" value="@contentImg.ID" />
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Danh mục</label>
+                        <div class="col-sm-10">
+                            @Html.CusDropdownList("crType", "Type", "Chọn loại nội dung", typeContentImgs.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = x.Key == contentImg.Type }), "Chọn loại nội dung")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Danh mục</label>
+                        <div class="col-sm-10">
+                            @Html.CusDropdownList("crTypePath", "TypePath", "Chọn loại định dạng", typePaths.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = x.Key == contentImg.TypePath }), "Chọn loại định dạng")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Tiêu đề</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crTiTle", "Title", contentImg.Title, "Tiêu đề", "Tiêu đề", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Nội dung</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextArea("crContent", "Content", contentImg.Content, "Nội dung", "Nội dung", false, false,row:5)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Trạng thái</label>
+                        <div class="col-sm-10">
+                            @Html.CusDropdownList("crStatus", "Status", "Chọn trạng thái", baseStatus.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = x.Key == contentImg.Status }), "Chọn trạng thái")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Ảnh</label>
+                        <div class="col-sm-10">
+                            <div class=" text-left" style="padding-bottom:10px">
+                                <div class="col-md-2 col-sm-12 text-center">
+                                    @if (contentImg.ID == 0)
+                                    {
+                                        <label class="btn btn-success btn-upload btn-sm" for="ipAvatar" title="Upload image file">
+                                            <input class="sr-only" id="ipAvatar" name="file" type="file" accept="image/*">
+                                            <input class="sr-only" id="PathImg" name="PathImg" type="hidden">
+                                            Chọn ảnh
+                                        </label>
+                                    }
+                                    else
+                                    {
+                                        <label class="btn btn-success btn-upload btn-sm" for="ipAvatar" title="Upload image file">
+                                            <input class="sr-only" id="ipAvatar" name="file" type="file" accept="image/*">
+                                            <input class="sr-only" id="PathImg" name="PathImg" type="hidden">
+                                            Chọn ảnh
+                                        </label>
+                                    }
+                                </div>
+                                <div class="col-md-3 col-sm-12">
+
+                                    @if (contentImg.ID == 0 || Utils.IsNullOrEmpty(contentImg.PathImg))
+                                    {
+                                        <img style="max-width:  100%;display:block;margin:auto" id="ImgAvatar" class="img-thumbnail" src="/Assets/Client/images/no-avatar.png">
+
+                                        <input style="max-width:  100%;display:block;margin:auto;border:0" class="text-center" id="FileNameImg" name="FileNameImg" type="hidden" readonly>
+                                    }
+                                    else
+                                    {
+                                        <img style="max-width: 100%;display:block;margin:auto" id="ImgAvatar" class="img-thumbnail" src="@contentImg.PathImg">
+                                        <input style="max-width:  100%;display:block;margin:auto;border:0" class="text-center" id="FileNameImg" name="FileNameImg" type="text" readonly value="@contentImg.FileNameImg" title="@contentImg.FileNameImg">
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="text-right">
+                                <a href="/quan-tri/noi-dung-hinh-anh" class="btn btn-success " style="color:aliceblue; margin-right:2%">Quay lại</a>
+                                <button type="submit" class="btn btn-info ">@Model.Button</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- col-lg-12-->
+    </div>
+</section>
+
+@section scripts{
+    <script type="text/javascript" src="~/Assets/Origin/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="~/Assets/Origin/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#ipAvatar").on("change", function () {
+                var fileName = this.files[0].name;
+                var oFReader = new FileReader();
+                oFReader.readAsDataURL(this.files[0]);
+                oFReader.onload = function (oFREvent) {
+                    $("#ImgAvatar").attr('src', this.result);
+                    $("#ImgAvatar").attr('title', fileName);
+                    $("#PathImg").val(this.result);
+                    $("#FileNameImg").val(fileName);
+                    $("#FileNameImg").attr("title", fileName);
+                    $("#FileNameImg").attr("type", "text");
+                }
+            });
+            
+            $(".cusleft-content").addClass("active");
+            $(".cusleft-contentimgs").addClass("active-cus");
+        });
+    </script>
+
+
+}

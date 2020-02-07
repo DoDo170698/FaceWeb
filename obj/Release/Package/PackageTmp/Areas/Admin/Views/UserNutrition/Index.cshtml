@@ -1,0 +1,68 @@
+﻿@model demo1.Models.Views.UserNutritionModel
+@using demo1.CodeLogic.Helper
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var searchParam = ViewBag.SearchParam as demo1.CodeLogic.Commons.UserNutritionParam ?? new demo1.CodeLogic.Commons.UserNutritionParam();
+    var users = Model.Users;
+    var userCoachs = Model.UserCoachs;
+    var baseStatus = Model.BaseStatus;
+}
+
+<section class="wrapper mt-2">
+    <h3><i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    <!-- row -->
+    <div class="row mt">
+        <div class="col-md-12">
+            <div class="content-panel col-md-12 col-xs-12">
+                <div class="col-md-12">
+                    <form class="quickSearch dataFilter" data-target="#div-userNutritions" action="@Model.Action" method="post" enctype="multipart/form-data">
+                        <div class="col-md-2" style="margin-bottom:10px">
+
+
+                            @Html.CusTextBox("srNameUser", "NameUser", searchParam.NameUser, "Tên học viên", "Tên học viên", false)
+                        </div>
+                        <div class="col-md-2" style="margin-bottom:10px">
+                            @Html.CusDropdownList("srIDUser", "IDUser", "Chọn học viên", users.Select(x => new SelectListItem() { Text = x.Name, Value = x.ID.ToString(), Selected = searchParam.IDUser == x.ID }), "Chọn học viên")
+                        </div>
+                        <div class="col-md-2" style="margin-bottom:10px">
+                            @Html.CusDropdownList("srIDCoach", "IDCoach", "Chọn huấn luyện viên", userCoachs.Select(x => new SelectListItem() { Text = x.Name, Value = x.ID.ToString(), Selected = searchParam.IDCoach == x.ID }), "Chọn huấn luyện viên")
+                        </div>
+                        <div class="col-md-2" style="margin-bottom:10px">
+                            @Html.CusDropdownList("srStatus", "Status", "Chọn trạng thái", baseStatus.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = searchParam.Status == x.Key }), "Chọn trạng thái")
+                        </div>
+
+
+                        <div class="col-md-4" style="margin-bottom:10px">
+                            <div class="col-md-6 col-xs-6 no-padding text-right">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;Tìm kiếm</button>
+                            </div>
+                            <div class="col-md-6  col-xs-6 no-padding text-right">
+                                <a href="/quan-tri/che-do-dinh-duong-hoc-vien/tao-moi" class="btn btn-primary" style="color:aliceblue"><i class="fa fa-plus-circle"></i>&nbsp;Thêm mới</a>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="content-panel col-md-12 col-xs-12 no-padding cus-content-table" id="div-userNutritions">
+                @Html.Partial("UserNutritions", Model)
+            </div>
+            <!-- /content-panel -->
+        </div>
+        <!-- /col-md-12 -->
+    </div>
+    <!-- /row -->
+</section>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusleft-nutrition").addClass("active");
+            $(".cusleft-usernutritions").addClass("active-cus");
+        })
+
+    </script>
+}
+

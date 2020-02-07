@@ -1,0 +1,236 @@
+﻿
+@if (Session["Success"] != null)
+{
+    var message = string.Join("<br>", (List<string>)Session["Success"]);
+    <script type="text/javascript">
+            $(document).ready(function () {
+                var unique_id = $.gritter.add({
+                    // (string | mandatory) the heading of the notification
+                    title: 'Thành công',
+                    // (string | mandatory) the text inside the notification
+                    text: '@message',
+                    // (string | optional) the image to display on the left
+                    image: '/Assets/Admin/app/img/checked.png',
+                    // (bool | optional) if you want it to fade out on its own or just sit there
+                    sticky: false,
+                    // (int | optional) the time you want it to be alive for before fading out
+                    time: 8000,
+                    // (string | optional) the class name you want to apply to that specific message
+                    class_name: 'my-sticky-class'
+                });
+
+                return false;
+            });
+    </script>
+    Session["Success"] = null;
+}
+@if (Session["Notifies"] != null)
+{
+    var message = string.Join("<br>", (List<string>)Session["Notifies"]);
+    <script type="text/javascript">
+            $(document).ready(function () {
+                var unique_id = $.gritter.add({
+                    // (string | mandatory) the heading of the notification
+                    title: 'Thông báo',
+                    // (string | mandatory) the text inside the notification
+                    text: '@message',
+                    // (string | optional) the image to display on the left
+                    image: '/Assets/Admin/app/img/bell.png',
+                    // (bool | optional) if you want it to fade out on its own or just sit there
+                    sticky: false,
+                    // (int | optional) the time you want it to be alive for before fading out
+                    time: 8000,
+                    // (string | optional) the class name you want to apply to that specific message
+                    class_name: 'my-sticky-class'
+                });
+
+                return false;
+            });
+    </script>
+    Session["Notifies"] = null;
+}
+@if (Session["Errors"] != null)
+{
+    var message = string.Join("<br>", (List<string>)Session["Errors"]);
+    <script type="text/javascript">
+            $(document).ready(function () {
+                var unique_id = $.gritter.add({
+                    // (string | mandatory) the heading of the notification
+                    title: 'Cảnh báo',
+                    // (string | mandatory) the text inside the notification
+                    text: '@message',
+                    // (string | optional) the image to display on the left
+                    image: '/Assets/Admin/app/img/cancel.png',
+                    // (bool | optional) if you want it to fade out on its own or just sit there
+                    sticky: false,
+                    
+                    // (int | optional) the time you want it to be alive for before fading out
+                    time: 8000,
+                    // (string | optional) the class name you want to apply to that specific message
+                    class_name: 'my-sticky-class'
+                });
+
+                return false;
+            });
+    </script>
+    Session["Errors"] = null;
+}
+@if (Session["Warns"] != null)
+{
+    var message = string.Join("<br>", (List<string>)Session["Warns"]);
+    <script type="text/javascript">
+            $(document).ready(function () {
+                var unique_id = $.gritter.add({
+                    // (string | mandatory) the heading of the notification
+                    title: 'Cảnh báo',
+                    // (string | mandatory) the text inside the notification
+                    text: '@message',
+                    // (string | optional) the image to display on the left
+                    image: '/Assets/Admin/app/img/warning.png',
+                    // (bool | optional) if you want it to fade out on its own or just sit there
+                    sticky: false,
+                    // (int | optional) the time you want it to be alive for before fading out
+                    time: 8000,
+                    // (string | optional) the class name you want to apply to that specific message
+                    class_name: 'my-sticky-class'
+                });
+
+                return false;
+            });
+    </script>
+    Session["Warns"] = null;
+}
+
+
+@*<style>
+
+        hr.message-inner-separator {
+            clear: both;
+            margin-top: 10px;
+            margin-bottom: 13px;
+            border: 0;
+            height: 1px;
+            background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+            background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+            background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+            background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+        }
+
+
+    </style>
+
+
+
+    <div class="container"  style="position: fixed;
+            z-index: 8000;
+            bottom: 0;
+            right : 0;
+            max-width:400px;">
+        <div class="row">
+            @if (Session["Success"] != null)
+            {
+                var message = string.Join("<br>", (List<string>)Session["Success"]);
+                <div class="col-sm-6 col-md-12" id="notifi-success-client">
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            ×
+                        </button>
+                        <span class="glyphicon glyphicon-ok"></span> <strong>Thành công</strong>
+                        <hr class="message-inner-separator">
+                        <p>
+                            @message
+                        </p>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        setTimeout(function () {
+                            $("#notifi-success-client").hide();
+                        }, 8000);
+                        return false;
+                    });
+                </script>
+                Session["Success"] = null;
+            }
+            @if (Session["Notifies"] != null)
+            {
+                var message = string.Join("<br>", (List<string>)Session["Notifies"]);
+                <div class="col-sm-6 col-md-12" id="notifi-client">
+                    <div class="alert alert-info">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            ×
+                        </button>
+                        <span class="glyphicon glyphicon-info-sign"></span> <strong>Thông báo</strong>
+                        <hr class="message-inner-separator">
+                        <p>
+                            @message
+                        </p>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        setTimeout(function () {
+                            $("#notifi-client").hide();
+                        }, 8000);
+                        return false;
+                    });
+                </script>
+                Session["Notifies"] = null;
+            }
+            @if (Session["Errors"] != null)
+            {
+                var message = string.Join("<br>", (List<string>)Session["Errors"]);
+                <div class="col-sm-6 col-md-12" id="notifi-danger-client">
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            ×
+                        </button>
+                        <span class="glyphicon glyphicon-hand-right"></span> <strong>Cảnh báo</strong>
+                        <hr class="message-inner-separator">
+                        <p>
+                            @message
+                        </p>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        setTimeout(function () {
+                            $("#notifi-danger-client").hide();
+                        }, 8000);
+                        return false;
+                    });
+                </script>
+
+
+                Session["Errors"] = null;
+            }
+            @if (Session["Warns"] != null)
+            {
+                var message = string.Join("<br>", (List<string>)Session["Warns"]);
+                <div class="col-sm-6 col-md-12" id="notifi-warns-client">
+                    <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            ×
+                        </button>
+                        <span class="glyphicon glyphicon-record"></span> <strong>Cảnh báo</strong>
+                        <hr class="message-inner-separator">
+                        <p>
+                            @message
+                        </p>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        setTimeout(function () {
+                            $("#notifi-warns-client").hide();
+                        }, 8000);
+                        return false;
+                    });
+                </script>
+                Session["Warns"] = null;
+            }
+
+        </div>
+    </div>*@
+
+

@@ -1,0 +1,157 @@
+﻿@model demo1.Models.Views.BlogModel
+@using demo1.CodeLogic.Helper
+@using demo1.CodeLogic
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var categoryBlogs = Model.CategoryBlogs;
+    var baseStatus = Model.BaseStatus;
+    //var searchParam = ViewBag.SearchParam as demo1.CodeLogic.Commons.BlogParam ?? new demo1.CodeLogic.Commons.BlogParam();
+    var blog = Model.Blog;
+}
+
+<section class="wrapper">
+    <h3><i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    <!-- BASIC FORM ELELEMNTS -->
+    <div class="row mt">
+        <div class="col-lg-12">
+            <div class="form-panel">
+                <h4 class="mb"><i class="fa fa-angle-right"></i> Thông tin bài viết</h4>
+                <form id="FormCrBlog" class="quickSubmit form-horizontal style-form bv-form validateForm useScrollBar" data-editor="1" action="@Model.Action" method="post">
+
+                    <input type="hidden" name="ID" value="@blog.ID" />
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Danh mục</label>
+                        <div class="col-sm-10">
+                            @Html.CusDropdownList("srIDCategory", "IDCategory", "Chọn danh mục", categoryBlogs.Select(x => new SelectListItem() { Text = x.Name, Value = x.ID.ToString(), Selected = x.ID == blog.IDCategory }), "Chọn danh mục")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Tiêu đề</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crTiTle", "Title", blog.Title, "Tiêu đề", "Tiêu đề", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Tên bài viết</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crName", "Name", blog.Name, "Tên bài viết", "Tên bài viết", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Mô tả</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crDescription", "Description", blog.Description, "Mô tả", "Mô tả", false, true)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Trạng thái</label>
+                        <div class="col-sm-10">
+                            @Html.CusDropdownList("crStatus", "Status", "Chọn trạng thái", baseStatus.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = x.Key == blog.Status }), "Chọn trạng thái")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Nội dung</label>
+                        <div class="col-sm-10">
+
+
+                            <textarea id="txtContent" name="Content" class="form-control">@blog.Content</textarea>
+                            <input type="hidden" id="hdfContent" name="Content" value="@blog.Content" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Ảnh bài viết</label>
+                        <div class="col-sm-10">
+                            <div class=" text-left" style="padding-bottom:10px">
+                                <div class="col-md-2 col-sm-12 text-center">
+                                    @if (blog.ID == 0 || Utils.IsNullOrEmpty(blog.PathImg))
+                                    {
+                                        <label class="btn btn-success btn-upload btn-sm" for="ipAvatar" title="Upload image file">
+                                            <input class="sr-only" id="ipAvatar" name="file" type="file" accept="image/*">
+                                            <input class="sr-only" id="PathImg" name="PathImg" type="hidden">
+                                            Chọn ảnh
+                                        </label>
+                                    }
+                                    else
+                                    {
+                                        <label class="btn btn-success btn-upload btn-sm" for="ipAvatar" title="Upload image file">
+                                            <input class="sr-only" id="ipAvatar" name="file" type="file" accept="image/*">
+                                            <input class="sr-only" id="PathImg" name="PathImg" type="hidden">
+                                            Chọn ảnh
+                                        </label>
+                                    }
+                                </div>
+                                <div class="col-md-3 col-sm-12">
+
+                                    @if (blog.ID == 0 || Utils.IsNullOrEmpty(blog.PathImg))
+                                    {
+                                        <img style="max-width:  100%;display:block;margin:auto" id="ImgAvatar" class="img-thumbnail" src="/Assets/Client/images/no-avatar.png">
+
+                                        <input style="max-width:  100%;display:block;margin:auto;border:0" class="text-center" id="FileNameImg" name="FileNameImg" type="hidden" readonly>
+                                    }
+                                    else
+                                    {
+                                        <img style="max-width: 100%;display:block;margin:auto" id="ImgAvatar" class="img-thumbnail" src="@blog.PathImg">
+                                        <input style="max-width:  100%;display:block;margin:auto;border:0" class="text-center" id="FileNameImg" name="FileNameImg" type="text" readonly value="@blog.FileNameImg" title="@blog.FileNameImg">
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="text-right">
+                                <a href="/quan-tri/bai-viet" class="btn btn-success " style="color:aliceblue; margin-right:2%">Quay lại</a>
+                                <button type="submit" class="btn btn-info ">@Model.Button</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- col-lg-12-->
+    </div>
+</section>
+
+@section css{
+
+}
+@section scripts{
+    <script type="text/javascript" src="~/Assets/Origin/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="~/Assets/Origin/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var contentArt = $("#hdfContent").val(); //CKeditor
+            $("#txtContent").val(contentArt); //CKeditor
+            var editer = CKEDITOR.replace("txtContent", {
+                height: '500px',
+                filebrowserBrowseUrl: '/Assets/Origin/ckfinder/ckfinder.html',
+                filebrowserImageBrowseUrl: '/Assets/Origin/ckfinder/ckfinder.html?type=Images',
+                filebrowserFlashBrowseUrl: '/Assets/Origin/ckfinder/ckfinder.html?type=Flash',
+                filebrowserUploadUrl: '/Assets/Origin/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files',
+                filebrowserImageUploadUrl: '/Assets/Origin/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images',
+                filebrowserFlashUploadUrl: '/Assets/Origin/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Flash',
+            });
+
+            $("#ipAvatar").on("change", function () {
+                var fileName = this.files[0].name;
+                var oFReader = new FileReader();
+                oFReader.readAsDataURL(this.files[0]);
+                oFReader.onload = function (oFREvent) {
+                    $("#ImgAvatar").attr('src', this.result);
+                    $("#ImgAvatar").attr('title', fileName);
+                    $("#PathImg").val(this.result);
+                    $("#FileNameImg").val(fileName);
+                    $("#FileNameImg").attr("title", fileName);
+                    $("#FileNameImg").attr("type", "text");
+                }
+            });
+            $(".cusleft-blog").addClass("active");
+            $(".cusleft-crblog").addClass("active-cus");
+        });
+    </script>
+
+
+}
+

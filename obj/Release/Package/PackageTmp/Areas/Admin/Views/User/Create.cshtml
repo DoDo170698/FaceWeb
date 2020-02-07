@@ -1,0 +1,176 @@
+﻿@model demo1.Models.Views.UserModel
+@using demo1.CodeLogic.Helper
+@using demo1.CodeLogic
+@using demo1.CodeLogic.Enums
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    //var searchParam = ViewBag.SearchParam as demo1.CodeLogic.Commons.BlogParam ?? new demo1.CodeLogic.Commons.BlogParam();
+    var user = Model.User;
+    var userTranning = Model.UserTranning;
+    var baseStatus = Model.BaseStatus;
+    var userRoles = Model.UserRoles;
+    var roles = Model.Roles;
+    var users = Model.Users;
+}
+
+<section class="wrapper">
+    <h3><i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    <!-- BASIC FORM ELELEMNTS -->
+    <div class="row mt">
+        <div class="col-lg-12">
+            <div class="form-panel">
+                <h4 class="mb"><i class="fa fa-angle-right"></i> Thông tin người dùng</h4>
+                <form id="FormCrUser" class="quickSubmit form-horizontal style-form bv-form validateForm useScrollBar" action="@Model.Action" method="post">
+
+                    <input type="hidden" name="ID" value="@user.ID" />
+                    <input type="hidden" name="IDUserTranning" value="@userTranning.ID" />
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Tên đăng nhập</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crUsername", "Username", user.Username, "Tên đăng nhập", "Tên đăng nhập", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Mật khẩu</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBoxPassWord("crPassword", "Password", user.Password, "Mật khẩu", "Mật khẩu", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Tên người dùng</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crName", "Name", user.Name, "Tên người dùng", "Tên người dùng", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Ngày sinh</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBoxDateDefault("crBirthday", "Birthday", Utils.DateToString(user.Birthday), "Ngày sinh", "Ngày sinh", false, new { @autocomplete = "off" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Số điện thoại</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBoxDigit("crPhone", "Phone", user.Phone, "Số điện thoại", "Số điện thoại", true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Địa chỉ</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crAddress", "Address", user.Address, "Địa chỉ", "Địa chỉ", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Trạng thái</label>
+                        <div class="col-sm-10">
+                            @Html.CusDropdownList("crStatus", "Status", "Chọn trạng thái", baseStatus.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = x.Key == user.Status }), "Chọn trạng thái")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Quyền tài khoản</label>
+                        <div class="col-sm-10">
+                            @Html.CusDropdownListPicker("crIDRoles", "IDRoles", null, roles.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected =  !user.IsNullOrEmpty() && userRoles.Select(n => n.IDRole).Contains(x.Key) }), "Chọn quyền")
+                        </div>
+                    </div>
+                    @if (userRoles.Select(x => x.IDRole).Contains((int)Enums.Role.Student))
+                    {
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Huấn luyện viên</label>
+                            <div class="col-sm-10">
+                                @Html.CusDropdownList("crIDCoach", "IDCoach", "Chọn huấn luyện viên", users.Select(x => new SelectListItem() { Text = x.Name, Value = x.ID.ToString(), Selected = x.ID == userTranning.IDCoach }), "Chọn huấn luyện viên")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Số buổi còn lại</label>
+                            <div class="col-sm-10">
+                                @Html.CusTextBoxDigit("crRest", "Rest", userTranning.Rest, "Số buổi còn lại", "Số buổi còn lại", false, true)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">FaceID</label>
+                            <div class="col-sm-10">
+                                @Html.CusTextBoxDigit("crIDFace", "IDFace", userTranning.IDFace, "FaceID", "FaceID", false, true)
+                            </div>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Ảnh đại diện</label>
+                        <div class="col-sm-10">
+                            <div class=" text-left" style="padding-bottom:10px">
+                                <div class="col-md-2 col-sm-12 text-center">
+                                    @if (user.ID == 0)
+                                    {
+                                        <label class="btn btn-success btn-upload btn-sm" for="ipAvatar" title="Upload image file">
+                                            <input class="sr-only" id="ipAvatar" name="file" type="file" accept="image/*">
+                                            <input class="sr-only" id="PathImg" name="PathImg" type="hidden">
+                                            Chọn ảnh
+                                        </label>
+                                    }
+                                    else
+                                    {
+                                        <label class="btn btn-success btn-upload btn-sm" for="ipAvatar" title="Upload image file">
+                                            <input class="sr-only" id="ipAvatar" name="file" type="file" accept="image/*">
+                                            <input class="sr-only" id="PathImg" name="PathImg" type="hidden">
+                                            Chọn ảnh
+                                        </label>
+                                    }
+                                </div>
+                                <div class="col-md-3 col-sm-12">
+
+                                    @if (user.ID == 0 || Utils.IsNullOrEmpty(user.PathImg))
+                                    {
+                                        <img style="max-width:  100%;display:block;margin:auto" id="ImgAvatar" class="img-thumbnail" src="/Assets/Client/images/no-avatar.png">
+
+                                        <input style="max-width:  100%;display:block;margin:auto;border:0" class="text-center" id="FileNameImg" name="FileNameImg" type="hidden" readonly>
+                                    }
+                                    else
+                                    {
+                                        <img style="max-width: 100%;display:block;margin:auto" id="ImgAvatar" class="img-thumbnail" src="@user.PathImg">
+                                        <input style="max-width:  100%;display:block;margin:auto;border:0" class="text-center" id="FileNameImg" name="FileNameImg" type="text" readonly value="@user.FileNameImg" title="@user.FileNameImg">
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="text-right">
+                                <a href="/quan-tri/tai-khoan" class="btn btn-success " style="color:aliceblue; margin-right:2%">Quay lại</a>
+                                <button type="submit" class="btn btn-info ">@Model.Button</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <!-- col-lg-12-->
+    </div>
+</section>
+
+@section css{
+
+}
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusleft-user").addClass("active");
+            $(".cusleft-users").addClass("active-cus");
+        })
+        $("#ipAvatar").on("change", function () {
+            var fileName = this.files[0].name;
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(this.files[0]);
+            oFReader.onload = function (oFREvent) {
+                $("#ImgAvatar").attr('src', this.result);
+                $("#ImgAvatar").attr('title', fileName);
+                $("#PathImg").val(this.result);
+                $("#FileNameImg").val(fileName);
+                $("#FileNameImg").attr("title", fileName);
+                $("#FileNameImg").attr("type", "text");
+            }
+        });
+    </script>
+}
+

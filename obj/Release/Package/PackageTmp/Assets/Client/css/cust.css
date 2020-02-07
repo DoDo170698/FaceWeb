@@ -1,0 +1,21 @@
+﻿
+.dropdown-menu.inner.show span.text {
+    color: #191818
+}
+.bs-searchbox .form-control {
+    height: 58px !important;
+    background: #ebed6b24 !important;
+    color: rgb(27, 26, 26) !important;
+    font-size: 18px;
+    border-radius: 0px;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: #000000e0 !important;
+    border-bottom: 1px solid rgba(193, 225, 14, 0.92) !important;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.heading-cus a:hover {
+    color: #fff;
+}

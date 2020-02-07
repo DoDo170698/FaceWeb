@@ -1,0 +1,50 @@
+﻿
+@model demo1.Models.Views.BlogModel
+@using demo1.CodeLogic
+@using demo1.Models.Fitness
+@{
+    var categoryBlog = Model.CategoryBlog;
+    var blogs = Model.Blogs;
+    var users = Model.Users;
+    var contentImg = Model.ContentImg;
+    var comments = Model.Comments;
+}
+
+@if (blogs.Where(x => x.IDCategory.Equals(categoryBlog.ID)).Count() <= 0)
+{
+    <div class="col-md-12 text-center">
+        Không có bài viết
+    </div>
+}
+@foreach (var blog in blogs.Where(x => x.IDCategory.Equals(categoryBlog.ID)))
+{
+    var user = users.FirstOrDefault(x => x.ID.Equals(blog.CreatedBy)) ?? new User();
+    var comment = comments.Where(x => x.IDBlog.Equals(blog.ID)).ToList() ?? new List<Comment>();
+    <div class="col-md-4 d-flex">
+        <div class="blog-entry align-self-stretch">
+            <a href="/chi-tiet-bai-viet/@blog.ID" class="block-20" style="background-image: url('@(blog.PathImg ?? "/Assets/Client/images/no-image.png")');">
+            </a>
+            <div class="text py-4 d-block">
+                <div class="meta">
+                    <div><a href="">@Utils.DateToString(blog.Created, "dd/MM/yyyy HH:mm")</a></div>
+                    <div><a href="">@user.Name</a></div>
+                    <div><a href="" class="meta-chat"><span class="icon-chat"></span> @comment.Count</a></div>
+                </div>
+                <h3 class="heading mt-2"><a href="/chi-tiet-bai-viet/@blog.ID">@blog.Name</a></h3>
+                <p>@blog.Description .</p>
+            </div>
+        </div>
+    </div>
+}
+<div class="col-md-12 mb-5">
+    <div class="row mt-5 ">
+        <div class="col-md-4 text-center">
+        </div>
+        <div class="col-md-4 text-center">
+
+        </div>
+        <div class="col-md-4 text-center">
+            @ViewBag.Paging.RenderClient("#div-BlogByCategorys")
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+﻿@model demo1.Models.Views.ContactInforModel
+@using demo1.CodeLogic.Helper
+@using demo1.CodeLogic
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var contactInfor = Model.ContactInfor;
+}
+
+<section class="wrapper">
+    <h3><i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    <!-- BASIC FORM ELELEMNTS -->
+    <div class="row mt">
+        <div class="col-lg-12">
+            <div class="form-panel">
+                <h4 class="mb"><i class="fa fa-angle-right"></i> Thông tin liên hệ</h4>
+                <form id="FormCrBlogCategory" class="quickSubmit form-horizontal style-form bv-form validateForm useScrollBar" action="@Model.Action" method="post">
+
+                    <input type="hidden" name="ID" value="@contactInfor.ID" />
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Địa chỉ</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crAddress", "Address", contactInfor.Address, "Địa chỉ", "Địa chỉ", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Số điện thoại liên hệ</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crPhone", "Phone", contactInfor.Phone, "Số điện thoại liên hệ", "Số điện thoại liên hệ", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crEmail", "Email", contactInfor.Email, "Email", "Email", false, false)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Website</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crWebsite", "Website", contactInfor.Website, "Website", "Website", false, false)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Tên trang Facebook</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crFacebook", "Facebook", contactInfor.Facebook, "Tên trang Facebook", "Tên trang Facebook", false, false)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Đường dẫn trang Facebook</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crFacebookUrl", "FacebookUrl", contactInfor.FacebookUrl, "Đường dẫn trang Facebook", "Đường dẫn trang Facebook", false, false)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Thời gian làm việc trong tuần</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crRangeDay", "RangeDay", contactInfor.RangeDay, "Thời gian làm việc trong tuần", "Thời gian làm việc trong tuần", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Thời gian làm việc trong ngày</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crRangeTime", "RangeTime", contactInfor.RangeTime, "Thời gian làm việc trong ngày", "Thời gian làm việc trong ngày", false, true)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-info ">Lưu</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- col-lg-12-->
+    </div>
+</section>
+
+@section css{
+
+}
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusleft-contact").addClass("active");
+            $(".cusleft-contactinfors").addClass("active-cus");
+        });
+    </script>
+}
+
+

@@ -1,0 +1,40 @@
+﻿@model BaseModel
+    @{ 
+        Layout = null;
+    }
+<form id="FrmDlItem" action="@Model.Url" title="@Model.Title"  data-target="@(Equals(Model.Target,null)? string.Empty :Model.Target)"
+      accept-charset="utf-8" enctype="multipart/form-data" class="form-horizontal form-group-sm frm-df frm-rm form-delete closeOnSubmit @(Equals(Model.Class,null))" method="POST">
+    <div class="container-fluid">
+        <div class="form-group form-group-title">
+            <div class="col-sm-12 txtct">
+                <label class="control-label title">@Model.Title</label>
+            </div>
+        </div>
+        <div class="form-group form-group-name">
+            <div class="col-sm-12 txtct ">
+                <label class="control-label name center" title="">@Model.Content</label>
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-sm-12 txtct">
+                @if (Request.IsAjaxRequest())
+                {
+                    <button class="btn btn-default btn-sm closeDialog" type="button">@string.Format("Hủy")</button>
+                }
+                @*else
+        {
+            <a class="btn btn-default btn-sm backLink" href="@ViewBag.DeleteParam.RedirectPath" title="">@string.Format("Quay lại")</a>
+        }*@
+                @if (Model.IsMulti)
+                {
+                    <input type="hidden" name="IDs" value="@Model.IDs" />
+                }
+                else
+                {
+                    <input type="hidden" name="ID" value="@Model.ID" />
+                }
+                <button class="btn btn-danger btn-sm" type="submit">@string.Format("Xóa")</button>
+            </div>
+        </div>
+    </div>
+</form>

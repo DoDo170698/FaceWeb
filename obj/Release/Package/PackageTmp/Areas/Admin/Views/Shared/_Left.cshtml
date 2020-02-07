@@ -1,0 +1,242 @@
+﻿@using demo1.CodeLogic
+@using demo1.Models.Fitness
+@using demo1.CodeLogic.Enums
+@{
+    var user = (User)Session["CurrentUser"] ?? new demo1.Models.Fitness.User();
+    var checkAdmin = SystemConfig.IsRole(user, new int[] { (int)Enums.Role.Admin, (int)Enums.SystemRole.System });
+}
+<div id="sidebar" class="nav-collapse ">
+    <!-- sidebar menu start-->
+    <ul class="sidebar-menu" id="nav-accordion">
+        <p class="centered">
+            <div style="cursor: pointer;" class="centered" href="@(user.PathImg.IsNullOrEmpty() ? "/Assets/Client/images/no-avatar.png" : user.PathImg)" data-fancybox="2u_file_video">
+                <img style="background: #e7e7e7;" src="@(user.PathImg.IsNullOrEmpty() ? "/Assets/Client/images/no-avatar.png" : user.PathImg)" class="img-circle" width="80">
+            </div>
+            @*<a href="profile.html">
+                <img style="background: #e7e7e7;" src="@(user.PathImg.IsNullOrEmpty() ? "/Assets/Client/images/no-avatar.png" : user.PathImg)" class="img-circle" width="80">
+            </a>*@
+        </p>
+        <h5 class="centered">@user.Name</h5>
+        @if (checkAdmin)
+        {
+            <li class="mt">
+                <a class="cusleft-home" href="/quan-tri">
+                    <i class="fa fa-dashboard"></i>
+                    <span>Tổng quan</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a class="cusleft-user" href="javascript:;">
+                    <i class="fa fa-user-circle"></i>
+                    <span>Tài khoản</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-users" href="/quan-tri/tai-khoan">Quản lý tài khoản</a></li>
+                    <li><a class="cusleft-userstudents" href="/quan-tri/chi-tiet-hoc-vien">Chi tiết tài khoản học viên</a></li>
+                    @*<li><a class="cusleft-userroles" href="/quan-tri/phan-quyen">Phân quyền</a></li>*@
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a class="cusleft-category" href="javascript:;">
+                    <i class="fa fa-desktop"></i>
+                    <span>Danh mục</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-blogcategorys" href="/quan-tri/danh-muc-bai-viet">Danh mục bài viết</a></li>
+                    <li><a class="cusleft-servicecategorys" href="/quan-tri/danh-muc-dich-vu">Danh mục dịch vụ</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a class="cusleft-service" href="javascript:;">
+                    <i class="fa fa-bandcamp"></i>
+                    <span>Dịch vụ</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-services" href="/quan-tri/dich-vu">Danh sách dịch vụ</a></li>
+                    <li><a class="cusleft-crservice" href="/quan-tri/dich-vu/tao-moi">Thêm mới dịch vụ</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a class="cusleft-blog" href="javascript:;">
+                    <i class="fa fa-book"></i>
+                    <span>Bài viết</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-blogs" href="/quan-tri/bai-viet">Danh sách bài viết</a></li>
+                    <li><a class="cusleft-crblog" href="/quan-tri/bai-viet/tao-moi">Thêm mới bài viết</a></li>
+                    <li><a class="cusleft-comments" href="/quan-tri/binh-luan-bai-viet">Bình luận bài viết</a></li>
+                </ul>
+            </li>
+        }
+
+        <li class="sub-menu">
+            <a class="cusleft-schedule" href="javascript:;">
+                <i class="fa fa-tasks"></i>
+                <span>Quản lý tập luyện</span>
+            </a>
+            <ul class="sub sub-cus">
+                <li><a class="cusleft-workoutschedules" href="/quan-tri/lich-dang-ki-ca-nhan">Lịch đăng kí cá nhân</a></li>
+                <li><a class="cusleft-workoutschedulegroups" href="/quan-tri/lich-dang-ki-nhom">Lịch đăng kí nhóm</a></li>
+                <li><a class="cusleft-practicedemos" href="/quan-tri/lich-dang-ki-tap-thu">Lịch đăng kí tập thử</a></li>
+                @if (checkAdmin)
+                {
+                    <li><a class="cusleft-timeschedules" href="/quan-tri/thoi-gian-tap-nhom">Thời gian tập nhóm</a></li>
+                }
+            </ul>
+        </li>
+
+
+
+        <li class="sub-menu">
+            <a class="cusleft-nutrition" href="javascript:;">
+                <i class="fa fa-heartbeat"></i>
+                <span>Chế độ dinh dưỡng</span>
+            </a>
+            <ul class="sub sub-cus">
+
+                @if (checkAdmin)
+                {
+                    <li><a class="cusleft-nutritions" href="/quan-tri/che-do-dinh-duong">Chế độ dinh dưỡng</a></li>
+                }
+                <li><a class="cusleft-usernutritions" href="/quan-tri/che-do-dinh-duong-hoc-vien">Chế độ theo học viên</a></li>
+            </ul>
+        </li>
+
+        @if (checkAdmin)
+        {
+            <li class="sub-menu">
+                <a class="cusleft-contact" href="javascript:;">
+                    <i class="fa fa-phone"></i>
+                    <span>Liên hệ</span>
+                </a>
+                <ul class="sub sub-cus">
+                    @*<li><a class="cusleft-nutritions" href="/quan-tri/bai-viet">Chế độ dinh dưỡng</a></li>*@
+                    <li><a class="cusleft-contactinfors" href="/quan-tri/thong-tin-lien-he">Thông tin liên hệ</a></li>
+                    <li><a class="cusleft-contacts" href="/quan-tri/gop-y-phan-hoi">Góp ý - phản hồi</a></li>
+                </ul>
+            </li>
+
+            <li class="sub-menu">
+                <a class="cusleft-content" href="javascript:;">
+                    <i class="fa fa-file-code-o"></i>
+                    <span>Nội dung Website</span>
+                </a>
+                <ul class="sub sub-cus">
+                    @*<li><a class="cusleft-nutritions" href="/quan-tri/bai-viet">Chế độ dinh dưỡng</a></li>*@
+                    <li><a class="cusleft-contents" href="/quan-tri/noi-dung">Nội dung</a></li>
+                    <li><a class="cusleft-contentimgs" href="/quan-tri/noi-dung-hinh-anh">Nội dung hình ảnh</a></li>
+                </ul>
+            </li>
+        }
+
+
+        <!-- day nhe -->
+        @*<li class="sub-menu">
+            <a href="javascript:;">
+                <i class="fa fa-code"></i>
+                <span>Nội dung Website</span>
+            </a>
+            <ul class="sub">
+                <li><a href="grids.html">Grids</a></li>
+            </ul>
+        </li>
+        <li class="sub-menu">
+            <a href="javascript:;">
+                <i class="fa fa-cogs"></i>
+                <span>Components</span>
+            </a>
+            <ul class="sub">
+                <li><a href="grids.html">Grids</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="todo_list.html">Todo List</a></li>
+                <li><a href="dropzone.html">Dropzone File Upload</a></li>
+                <li><a href="inline_editor.html">Inline Editor</a></li>
+                <li><a href="file_upload.html">Multiple File Upload</a></li>
+            </ul>
+        </li>
+
+        <li class="sub-menu">
+            <a href="javascript:;">
+                <i class="fa fa-book"></i>
+                <span>Extra Pages</span>
+            </a>
+            <ul class="sub">
+                <li><a href="blank.html">Blank Page</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="lock_screen.html">Lock Screen</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="invoice.html">Invoice</a></li>
+                <li><a href="pricing_table.html">Pricing Table</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="404.html">404 Error</a></li>
+                <li><a href="500.html">500 Error</a></li>
+            </ul>
+        </li>
+        <li class="sub-menu">
+            <a href="javascript:;">
+                <i class="fa fa-tasks"></i>
+                <span>Forms</span>
+            </a>
+            <ul class="sub">
+                <li><a href="form_component.html">Form Components</a></li>
+                <li><a href="advanced_form_components.html">Advanced Components</a></li>
+                <li><a href="form_validation.html">Form Validation</a></li>
+                <li><a href="contactform.html">Contact Form</a></li>
+            </ul>
+        </li>
+        <li class="sub-menu">
+            <a href="javascript:;">
+                <i class="fa fa-th"></i>
+                <span>Data Tables</span>
+            </a>
+            <ul class="sub">
+                <li><a href="basic_table.html">Basic Table</a></li>
+                <li><a href="responsive_table.html">Responsive Table</a></li>
+                <li><a href="advanced_table.html">Advanced Table</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="inbox.html">
+                <i class="fa fa-envelope"></i>
+                <span>Mail </span>
+                <span class="label label-theme pull-right mail-info">2</span>
+            </a>
+        </li>
+        <li class="sub-menu">
+            <a href="javascript:;">
+                <i class=" fa fa-bar-chart-o"></i>
+                <span>Charts</span>
+            </a>
+            <ul class="sub">
+                <li><a href="morris.html">Morris</a></li>
+                <li><a href="chartjs.html">Chartjs</a></li>
+                <li><a href="flot_chart.html">Flot Charts</a></li>
+                <li><a href="xchart.html">xChart</a></li>
+            </ul>
+        </li>
+        <li class="sub-menu">
+            <a href="javascript:;">
+                <i class="fa fa-comments-o"></i>
+                <span>Chat Room</span>
+            </a>
+            <ul class="sub">
+                <li><a href="lobby.html">Lobby</a></li>
+                <li><a href="chat_room.html"> Chat Room</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="google_maps.html">
+                <i class="fa fa-map-marker"></i>
+                <span>Google Maps </span>
+            </a>
+        </li>*@
+    </ul>
+    <!-- sidebar menu end-->
+    <div class="nav pull-right top-menu" id="left-logout">
+        <ul class="nav pull-right top-menu">
+            <li><a class="logout" href="/quan-tri/dang-xuat">Đăng xuất</a></li>
+        </ul>
+    </div>
+</div>
+

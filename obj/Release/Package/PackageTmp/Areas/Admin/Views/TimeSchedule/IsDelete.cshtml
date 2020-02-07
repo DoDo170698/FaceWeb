@@ -1,0 +1,69 @@
+﻿@model demo1.Models.Views.BaseModel
+@{ 
+    Layout = null;
+}
+<form id="FrmDlItem" action="@Model.Url" title="@Model.Title" data-target="@(Equals(Model.Target,null)? string.Empty :Model.Target)"
+      accept-charset="utf-8" enctype="multipart/form-data" class="form-horizontal @(Equals(Model.Class,null))" method="POST">
+    <div class="row mt">
+        <div class="col-lg-12 no-padding">
+            <div class="form-panel no-margin">
+                <div class="container-fluid">
+                    <div class="form-group form-group-title">
+                        <div class="col-sm-12 txtct">
+                            <label class="control-label title">@Model.Title</label>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-name">
+                        <div class="col-sm-12 txtct ">
+                            <label class="control-label name center" title="">@Model.Content</label>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-sm-12 txtct">
+                            @if (Request.IsAjaxRequest())
+                            {
+                                <button class="btn btn-default btn-sm closeDialog" type="button">@string.Format("Hủy")</button>
+                            }
+                            @if (Model.IsMulti)
+                            {
+                                <input type="hidden" name="IDs" value="@Model.IDs" />
+                            }
+                            else
+                            {
+                                <input type="hidden" name="ID" value="@Model.ID" />
+                            }
+                            <button class="btn btn-danger btn-sm" type="submit">@string.Format("Xóa")</button>
+                        </div>
+                    </div>
+                    @*<div class="form-group ">
+                        <label for="email" class="control-label col-lg-2">Email</label>
+                        <div class="col-lg-10">
+                            <input class="form-control " id="email" name="email" type="email" />
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="agree" class="control-label col-lg-2 col-sm-3">Agree to Our Policy</label>
+                        <div class="col-lg-10 col-sm-9">
+                            <input type="checkbox" style="width: 20px" class="checkbox form-control" id="agree" name="agree" />
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="newsletter" class="control-label col-lg-2 col-sm-3">Receive the Newsletter</label>
+                        <div class="col-lg-10 col-sm-9">
+                            <input type="checkbox" style="width: 20px" class="checkbox form-control" id="newsletter" name="newsletter" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button class="btn btn-theme" type="submit">Save</button>
+                            <button class="btn btn-theme04" type="button">Cancel</button>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+            <!-- /form-panel -->
+        </div>
+        <!-- /col-lg-12 -->
+    </div>
+
+</form>

@@ -1,0 +1,94 @@
+﻿
+@model demo1.Models.Views.NutritionModel
+@using demo1.CodeLogic.Helper
+@using demo1.CodeLogic
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var nutrition = Model.Nutrition;
+    var baseStatus = Model.BaseStatus;
+}
+
+<section class="wrapper">
+    <div class="col-md-12">
+        <h3><a href="/quan-tri/che-do-dinh-duong">Danh sách</a> <i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    </div>
+    <!-- BASIC FORM ELELEMNTS -->
+    <div class="row mt">
+        <div class="col-lg-12">
+            <div class="form-panel">
+                <h4 class="mb"><i class="fa fa-angle-right"></i> Thông tin chế độ dinh dưỡng</h4>
+                <form id="FormCrBlogCategory" class="quickSubmit form-horizontal style-form bv-form validateForm useScrollBar" action="@Model.Action" method="post">
+
+                    <input type="hidden" name="ID" value="@nutrition.ID" />
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Tên thực phẩm</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crFoodName", "FoodName", nutrition.FoodName, "Tên thực phẩm", "Tên thực phẩm", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Định lượng</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crQuanti", "Quanti", nutrition.Quanti, "Định lượng", "Định lượng", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Carbohyrates</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crCarb", "Carb", nutrition.Carb, "Carbohyrates", "Carbohyrates", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Fat bão hòa</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crFat", "Fat", nutrition.Fat, "Fat bão hòa", "Fat bão hòa", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Protein</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("crPro", "Pro", nutrition.Pro, "Protein", "Protein", false, true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Kcal</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("Kcal", "Kcal", nutrition.Kcal, "Kcal", "Kcal", false, true)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Trạng thái</label>
+                        <div class="col-sm-10">
+                            @Html.CusDropdownList("crStatus", "Status", "Chọn trạng thái", baseStatus.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = x.Key == nutrition.Status }), "Chọn trạng thái")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="text-right">
+                                <a href="/quan-tri/danh-muc-bai-viet" class="btn btn-success " style="color:aliceblue; margin-right:2%">Quay lại</a>
+                                <button type="submit" class="btn btn-info ">@Model.Button</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- col-lg-12-->
+    </div>
+</section>
+
+@section css{
+
+}
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusleft-nutrition").addClass("active");
+            $(".cusleft-nutritions").addClass("active-cus");
+        });
+    </script>
+}
+
+
